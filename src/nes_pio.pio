@@ -49,14 +49,15 @@ wait_latch:
     set x, 6               ; 7 more CLK pulses: CLK 1-7 (bits 1-7 = B through Right)
 
 bit_loop:
-    wait 0 pin 1            ; CLK N falls — NES reads bit (N-1) here
-    out pins, 1             ; drive bit N while CLK is LOW (ready for CLK N+1)
-    wait 1 pin 1            ; CLK N rises
+    wait 0 pin 1    ; NES reads current bit during low
+    wait 1 pin 1    ; shift/register advances on rise
+    out pins, 1     ; present next bit during high, stable before next low
     jmp x-- bit_loop
 
     ; Right (bit 7) is now on DATA.  Must hold it through CLK 8↓ (NES reads Right).
-    wait 0 pin 1            ; CLK 8 falls — NES reads Right ← previously missing
-    set pins, 1             ; restore idle HIGH after all 8 bits have been read
+    wait 0 pin 1    ; CLK8 low, NES reads Right
+    wait 1 pin 1    ; hold Right through low, then release after rise
+    set pins, 1
 
 .wrap
 
@@ -93,8 +94,8 @@ static inline void nes_controller_program_init(PIO pio, uint sm, uint offset,
     sm_config_set_out_shift(&c, true, false, 32);
 
     // Clock divider: 1µs per tick = 125MHz / 125
-    float div = (float)clock_get_hz(clk_sys) / 1000000.0f;
-    sm_config_set_clkdiv(&c, div);
+    // float div = (float)clock_get_hz(clk_sys) / 1000000.0f;
+    sm_config_set_clkdiv(&c, 1.0f);
 
     // Initialize SM
     pio_sm_init(pio, sm, offset, &c);
