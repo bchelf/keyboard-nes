@@ -20,6 +20,10 @@ void led_set_mode(led_mode_t mode);
 // Trigger N quick flashes (20ms on/off), then return to current mode
 void led_flash(uint8_t count);
 
+// Briefly turn LED off for 100ms then return to current mode.
+// No-op if a flash sequence is already running.
+void led_dip(void);
+
 // Call every loop iteration (non-blocking)
 void led_task(void);
 

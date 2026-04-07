@@ -29,10 +29,29 @@ static PIO  s_pio = pio0;
 static uint s_sm  = 0;
 static uint s_pio_offset = 0;
 
+// Signal monitors: incremented in GPIO IRQs, checked in the main loop.
+static volatile uint32_t s_latch_count = 0;  // LATCH rising edges  (GP2)
+static volatile uint32_t s_clock_count = 0;  // CLK falling edges   (GP3)
+
+static void nes_signal_irq_handler(uint gpio, uint32_t events) {
+    (void)events;
+    if (gpio == GPIO_LATCH) s_latch_count++;
+    if (gpio == GPIO_CLOCK) s_clock_count++;
+}
+
 static void pio_init(void) {
     s_pio_offset = pio_add_program(s_pio, &nes_controller_program);
     nes_controller_program_init(s_pio, s_sm, s_pio_offset,
                                 GPIO_LATCH, GPIO_CLOCK, GPIO_DATA);
+
+    // Attach a rising-edge GPIO interrupt to GP2 (LATCH) so the main loop
+    // can tell whether the NES is actually sending latch pulses.
+    // GPIO interrupts fire on the raw pin state and work alongside PIO ownership.
+    // GPIO_IRQ_EDGE_RISE on LATCH (GP2), GPIO_IRQ_EDGE_FALL on CLK (GP3).
+    // Both share one callback; the SDK allows only one callback per core.
+    gpio_set_irq_enabled_with_callback(GPIO_LATCH, GPIO_IRQ_EDGE_RISE,
+                                       true, nes_signal_irq_handler);
+    gpio_set_irq_enabled(GPIO_CLOCK, GPIO_IRQ_EDGE_FALL, true);
 }
 
 int main(void) {
@@ -46,8 +65,8 @@ int main(void) {
     // Initialize PIO for NES protocol
     pio_init();
 
-    // Push initial "all buttons released" state
-    pio_sm_put(s_pio, s_sm, (uint32_t)0x00); // inverted: 0=not pressed in PIO domain
+    // Push initial "all buttons released" state (active-low: 0xFF = all not pressed)
+    pio_sm_put(s_pio, s_sm, (uint32_t)0xFF);
 
     // Load key bindings from flash (or defaults)
     key_bindings_load();
@@ -69,6 +88,8 @@ int main(void) {
     // Initialize TinyUSB host
     tusb_init();
 
+    printf("nes_kbd_adapter: boot complete, waiting for USB keyboard\n");
+
     if (remap_mode) {
         // Enter remap mode - blocks until complete or timeout
         bool success = key_bindings_remap();
@@ -80,7 +101,11 @@ int main(void) {
     }
 
     // Normal operation loop
-    uint32_t last_heartbeat = to_ms_since_boot(get_absolute_time());
+    uint32_t last_heartbeat   = to_ms_since_boot(get_absolute_time());
+    uint32_t last_poll        = last_heartbeat;
+    uint32_t last_latch_check = last_heartbeat;
+    uint32_t last_latch_seen  = s_latch_count;
+    uint32_t last_clock_seen  = s_clock_count;
 
     while (true) {
         // TinyUSB host task (must be called every iteration)
@@ -89,14 +114,37 @@ int main(void) {
         // LED state machine
         led_task();
 
+        uint32_t now = to_ms_since_boot(get_absolute_time());
+
         // Heartbeat: keep pushing current state to PIO FIFO so the NES
         // always gets a fresh value even when no keys change.
-        uint32_t now = to_ms_since_boot(get_absolute_time());
         if (now - last_heartbeat >= HEARTBEAT_MS) {
             last_heartbeat = now;
-            // Push inverted state (PIO expects active-high = pressed)
-            uint8_t inv = ~nes_button_state;
-            pio_sm_put(s_pio, s_sm, (uint32_t)inv);
+            pio_sm_put(s_pio, s_sm, (uint32_t)nes_button_state);
+        }
+
+        // 5-second poll summary
+        if (now - last_poll >= 5000) {
+            last_poll = now;
+            usb_hid_print_poll_summary();
+        }
+
+        // Latch monitor: once per second, check whether the NES has been
+        // sending latch pulses. A single quick flash = NES is polling.
+        // No flash = LATCH never reaching GP2 (wiring or level-shifter issue).
+        if (now - last_latch_check >= 1000) {
+            last_latch_check = now;
+            uint32_t latches = s_latch_count - last_latch_seen;
+            uint32_t clocks  = s_clock_count - last_clock_seen;
+            last_latch_seen  = s_latch_count;
+            last_clock_seen  = s_clock_count;
+
+            printf("[nes] last second: %lu LATCH pulses, %lu CLK edges\n",
+                   (unsigned long)latches, (unsigned long)clocks);
+
+            if (clocks >= 400) {
+                led_flash(1);  // CLK arriving correctly (~480 expected at 60Hz x 8)
+            }
         }
     }
 

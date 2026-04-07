@@ -29,4 +29,7 @@ bool usb_hid_is_key_held(uint8_t keycode);
 // Clear the last-pressed key record
 void usb_hid_clear_last_pressed_key(void);
 
+// Print a summary of all keys pressed since the last call, then reset the log
+void usb_hid_print_poll_summary(void);
+
 #endif // USB_HID_H

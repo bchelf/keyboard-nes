@@ -14,6 +14,12 @@ static uint8_t  s_flash_phase    = 0;   // 0=on,1=off per flash
 static bool     s_flashing       = false;
 static uint32_t s_flash_deadline = 0;
 
+// Dip state (brief LED-off while in solid mode)
+static bool     s_dipping        = false;
+static uint32_t s_dip_deadline   = 0;
+
+#define DIP_MS 100
+
 #define FLASH_ON_MS  20
 #define FLASH_OFF_MS 20
 
@@ -36,6 +42,13 @@ void led_flash(uint8_t count) {
     s_flash_deadline = to_ms_since_boot(get_absolute_time()) + FLASH_ON_MS;
     gpio_put(LED_PIN, 1);
     s_led_on = true;
+}
+
+void led_dip(void) {
+    if (s_flashing) return;  // don't interrupt a flash sequence
+    s_dipping      = true;
+    s_dip_deadline = to_ms_since_boot(get_absolute_time()) + DIP_MS;
+    gpio_put(LED_PIN, 0);
 }
 
 void led_task(void) {
@@ -65,6 +78,15 @@ void led_task(void) {
                     s_flash_deadline = now + FLASH_ON_MS;
                 }
             }
+        }
+        return;
+    }
+
+    // Handle dip (brief off)
+    if (s_dipping) {
+        if (now >= s_dip_deadline) {
+            s_dipping = false;
+            s_last_toggle = now;
         }
         return;
     }

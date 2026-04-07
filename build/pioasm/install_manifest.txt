@@ -1,5 +1,0 @@
-/Users/bchelf/keyboard-nes/build/pioasm-install/pioasm/pioasm
-/Users/bchelf/keyboard-nes/build/pioasm-install/pioasm/pioasmTargets.cmake
-/Users/bchelf/keyboard-nes/build/pioasm-install/pioasm/pioasmTargets-release.cmake
-/Users/bchelf/keyboard-nes/build/pioasm-install/pioasm/pioasmConfig.cmake
-/Users/bchelf/keyboard-nes/build/pioasm-install/pioasm/pioasmConfigVersion.cmake
