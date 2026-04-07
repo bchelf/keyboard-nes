@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/bchelf/keyboard-nes/build/pioasm/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

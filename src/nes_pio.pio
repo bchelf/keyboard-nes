@@ -1,0 +1,106 @@
+; NES controller PIO program
+; GP2 = Latch (input, active high)
+; GP3 = Clock (input, falling edge)
+; GP4 = Data  (output, open-drain, active low)
+;
+; Pin mapping (relative to state machine base):
+;   IN/WAIT pin 0 = GP2 (Latch)
+;   IN/WAIT pin 1 = GP3 (Clock)
+;   OUT/SET pin 0 = GP4 (Data)
+;
+; We use SET for GP4 open-drain: SET PINDIRS,1 drives low (pressed),
+; SET PINDIRS,0 releases to hi-Z (not pressed, NES pullup holds high).
+; The pin level is always written 0 so that when PINDIR=output we drive low.
+
+.program nes_controller
+.origin 0
+
+; Clock divider set externally for 1µs per tick (sys_clk / 125 = 1MHz)
+
+.wrap_target
+wait_latch:
+    wait 1 pin 0            ; wait for Latch rising edge (GP2 = pin base+0)
+
+    ; Pull button state from TX FIFO, non-blocking with noblock (uses OSR=all-ones if empty)
+    pull noblock            ; pull 32-bit word; if FIFO empty, OSR = all 1s (no buttons)
+    out null, 24            ; discard upper 24 bits, low 8 bits remain in OSR
+
+    ; Wait for Latch to go low before clocking to avoid false clock edges
+    wait 0 pin 0            ; wait for Latch to fall
+
+    ; Shift out 8 bits on falling clock edges
+    set x, 7               ; loop counter: 8 bits (0..7)
+
+bit_loop:
+    wait 1 pin 1            ; wait for Clock high
+    wait 0 pin 1            ; wait for Clock falling edge
+
+    ; Output next bit: shift 1 bit out of OSR into Y via a scratch path
+    ; We use OUT PINDIRS to implement open-drain:
+    ;   bit = 0 (pressed)   -> PINDIR = 1 (output, drives low)
+    ;   bit = 1 (not pressed)-> PINDIR = 0 (input, hi-Z, pullup holds high)
+    ; The OUT PINDIRS instruction takes the bits from OSR.
+    ; We need to invert: pressed=0 in NES protocol means we want PINDIR=1.
+    ; We store active-low in the FIFO (0=pressed), so OSR bit 0=pressed means
+    ; we want pindirs=1. But OUT PINDIRS shifts directly.
+    ; Solution: store 1=pressed in the byte we push (active-high internally),
+    ; then OUT PINDIRS,1 sets pindir=1 (drives low) when bit=1.
+    ; See usb_hid.c: we invert before writing to FIFO.
+    out pindirs, 1          ; shift 1 bit from OSR to GP4 pindir (1=drive low=pressed)
+
+    jmp x-- bit_loop        ; decrement and loop
+
+    ; After 8 bits, release Data line (hi-Z)
+    set pindirs, 0          ; GP4 = input (hi-Z)
+
+.wrap                       ; back to wait_latch
+
+% c-sdk {
+#include "hardware/clocks.h"
+
+static inline void nes_controller_program_init(PIO pio, uint sm, uint offset,
+                                                uint pin_latch,  // GP2
+                                                uint pin_clock,  // GP3
+                                                uint pin_data)   // GP4
+{
+    // Claim pins
+    pio_gpio_init(pio, pin_latch);
+    pio_gpio_init(pio, pin_clock);
+    pio_gpio_init(pio, pin_data);
+
+    // GP4 (Data): start as input (hi-Z), level driven low when PINDIR=output
+    gpio_disable_pulls(pin_data);       // no internal pulls — external 10kΩ pullup to 3.3V handles hi-Z state
+    gpio_set_dir(pin_data, GPIO_IN);    // start as input (hi-Z, released)
+
+    // Configure state machine
+    pio_sm_config c = nes_controller_program_get_default_config(offset);
+
+    // IN pins base = pin_latch (GP2), so pin 0=latch, pin 1=clock
+    sm_config_set_in_pins(&c, pin_latch);
+
+    // SET pin = pin_data (GP4), count=1
+    sm_config_set_set_pins(&c, pin_data, 1);
+
+    // OUT pin = pin_data (GP4), count=1 (for OUT PINDIRS)
+    sm_config_set_out_pins(&c, pin_data, 1);
+
+    // Shift OSR right, autopull disabled (we use pull noblock)
+    sm_config_set_out_shift(&c, true, false, 32);
+
+    // Clock divider: 1µs per tick = 125MHz / 125
+    float div = (float)clock_get_hz(clk_sys) / 1000000.0f;
+    sm_config_set_clkdiv(&c, div);
+
+    // Initialize SM
+    pio_sm_init(pio, sm, offset, &c);
+
+    // Set GP4 pindir to 0 (input/hi-Z) via PIO
+    pio_sm_set_pindirs_with_mask(pio, sm, 0u, 1u << pin_data);
+
+    // Set GP4 pin level to 0 (so when we switch to output, we drive low)
+    pio_sm_set_pins_with_mask(pio, sm, 0u, 1u << pin_data);
+
+    // Enable SM
+    pio_sm_set_enabled(pio, sm, true);
+}
+%}
