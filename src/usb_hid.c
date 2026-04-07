@@ -19,6 +19,10 @@
 #define NES_TRACE_SELECT 0
 #endif
 
+#ifndef NES_LOG_KEY_EDGES
+#define NES_LOG_KEY_EDGES 0
+#endif
+
 // ---------------------------------------------------------------------------
 // Shared state
 // ---------------------------------------------------------------------------
@@ -105,6 +109,19 @@ static const char *button_name_from_index(int btn) {
         case NES_BTN_RIGHT:  return "Right";
         default:             return "?";
     }
+}
+
+static void maybe_log_press_edges(uint8_t prev_state, uint8_t new_state) {
+#if NES_LOG_KEY_EDGES
+    for (int btn = 0; btn < NES_NUM_BUTTONS; btn++) {
+        if (!bit_is_pressed(prev_state, btn) && bit_is_pressed(new_state, btn)) {
+            printf("key edge -> NES %s\n", button_name_from_index(btn));
+        }
+    }
+#else
+    (void)prev_state;
+    (void)new_state;
+#endif
 }
 
 // ---------------------------------------------------------------------------
@@ -222,17 +239,10 @@ static void process_boot_report(const uint8_t keycodes[6]) {
             continue; // error codes (1=rollover, 2=post fail, 3=undefined)
         }
 
-        // Log every key that is currently pressed
+        // Poll summary + remap tracking
         {
-            const char *btn = nes_button_name(kc);
-            if (btn) {
-                printf("key pressed: 0x%02X -> NES %s\n", kc, btn);
-            } else {
-                printf("key pressed: 0x%02X\n", kc);
-            }
             poll_keys_set(kc);
 
-            // Remap mode tracking: only record the first press of each key
             bool was_held = false;
             for (int j = 0; j < 6; j++) {
                 if (s_held_keys[j] == kc) { was_held = true; break; }
@@ -249,6 +259,8 @@ static void process_boot_report(const uint8_t keycodes[6]) {
             }
         }
     }
+
+    maybe_log_press_edges(prev_keyboard_state, new_state);
 
     // Update held keys tracking
     memcpy(s_held_keys, keycodes, 6);
