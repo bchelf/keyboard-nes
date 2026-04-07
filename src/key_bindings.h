@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-// NES button indices (bit positions in nes_button_state)
+// NES button indices (bit positions in current_nes_state)
 #define NES_BTN_A       0
 #define NES_BTN_B       1
 #define NES_BTN_SELECT  2

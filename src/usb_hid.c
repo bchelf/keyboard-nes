@@ -4,16 +4,26 @@
 
 #include "tusb.h"
 #include "hardware/pio.h"
+#include "hardware/sync.h"
 #include "nes_pio.pio.h"
+#include "pico/time.h"
 
 #include <stdio.h>
 #include <string.h>
+
+#ifndef NES_TAP_STRETCH_US
+#define NES_TAP_STRETCH_US 17000u
+#endif
+
+#ifndef NES_TRACE_SELECT
+#define NES_TRACE_SELECT 0
+#endif
 
 // ---------------------------------------------------------------------------
 // Shared state
 // ---------------------------------------------------------------------------
 
-volatile uint8_t nes_button_state = 0xFF; // all unpressed
+volatile uint8_t current_nes_state = 0xFF; // all unpressed
 
 // PIO reference set by main after SM init
 static PIO  s_pio = NULL;
@@ -33,9 +43,33 @@ static uint8_t s_report_kbd_id[CFG_TUH_HID] = {0};   // report_id (0 = no IDs)
 static uint8_t s_last_pressed_key = 0;
 static uint8_t s_held_keys[6]     = {0};  // boot report has 6 key slots
 
+// Raw keyboard-derived button state before optional tap stretch is applied.
+static uint8_t s_keyboard_nes_state = 0xFF;
+static uint8_t s_last_latched_state = 0xFF;
+static uint32_t s_press_started_us[NES_NUM_BUTTONS] = {0};
+static uint32_t s_release_hold_until_us[NES_NUM_BUTTONS] = {0};
+
 // Poll summary: 256-bit set (32 bytes) tracking every keycode pressed since
 // the last call to usb_hid_print_poll_summary().
 static uint8_t s_poll_keys[32] = {0};  // bit N set = keycode N was pressed
+
+typedef struct {
+    uint32_t hid_reports;
+    uint32_t exposed_state_changes;
+    uint32_t pio_publish_count;
+    uint32_t pio_overwrite_words;
+    uint32_t pio_prime_count;
+    uint32_t tx_fifo_max_depth;
+    uint32_t nes_latches;
+    uint32_t usb_press_edges[NES_NUM_BUTTONS];
+    uint32_t nes_visible_press_edges[NES_NUM_BUTTONS];
+    uint32_t last_hid_report_us;
+    uint32_t last_state_change_us;
+    uint32_t last_pio_publish_us;
+    uint32_t last_latch_us;
+} latency_stats_t;
+
+static latency_stats_t s_latency = {0};
 
 static void poll_keys_set(uint8_t kc) {
     s_poll_keys[kc >> 3] |= (uint8_t)(1u << (kc & 7));
@@ -59,22 +93,125 @@ static const char *nes_button_name(uint8_t kc) {
     return NULL;
 }
 
+static const char *button_name_from_index(int btn) {
+    switch (btn) {
+        case NES_BTN_A:      return "A";
+        case NES_BTN_B:      return "B";
+        case NES_BTN_SELECT: return "Select";
+        case NES_BTN_START:  return "Start";
+        case NES_BTN_UP:     return "Up";
+        case NES_BTN_DOWN:   return "Down";
+        case NES_BTN_LEFT:   return "Left";
+        case NES_BTN_RIGHT:  return "Right";
+        default:             return "?";
+    }
+}
+
 // ---------------------------------------------------------------------------
 // Internal helpers
 // ---------------------------------------------------------------------------
 
-static void push_to_pio(uint8_t state) {
-    if (s_pio == NULL) return;
-    // PIO uses push-pull with OUT PINS (not PINDIRS).
-    // nes_button_state is active-low (0=pressed, 1=not pressed) — send as-is.
-    //   PIO bit=0 -> pin LOW  -> NES sees 0 (pressed)
-    //   PIO bit=1 -> pin HIGH -> NES sees 1 (not pressed)
-    pio_sm_put(s_pio, s_sm, (uint32_t)state);
+static inline uint32_t now_us(void) {
+    return time_us_32();
 }
 
-// Update nes_button_state from a 6-byte boot report keycode array
+static inline bool bit_is_pressed(uint8_t state, int btn) {
+    return (state & (uint8_t)(1u << btn)) == 0;
+}
+
+#if NES_TRACE_SELECT
+static void trace_select(const char *stage, uint8_t state, uint32_t now) {
+    printf("[trace][Select] %s t=%luus pressed=%u state=0x%02X"
+           " hid_dt=%ldus state_dt=%ldus pio_dt=%ldus latch_dt=%ldus\n",
+           stage,
+           (unsigned long)now,
+           bit_is_pressed(state, NES_BTN_SELECT) ? 1u : 0u,
+           state,
+           (long)(now - s_latency.last_hid_report_us),
+           (long)(now - s_latency.last_state_change_us),
+           (long)(now - s_latency.last_pio_publish_us),
+           (long)(now - s_latency.last_latch_us));
+}
+#else
+static void trace_select(const char *stage, uint8_t state, uint32_t now) {
+    (void)stage;
+    (void)state;
+    (void)now;
+}
+#endif
+
+static uint8_t compute_exposed_state(uint32_t now) {
+    uint8_t state = s_keyboard_nes_state;
+
+    for (int btn = 0; btn < NES_NUM_BUTTONS; btn++) {
+        const uint8_t mask = (uint8_t)(1u << btn);
+        if ((state & mask) == 0) {
+            s_release_hold_until_us[btn] = 0;
+            continue;
+        }
+
+        uint32_t hold_until = s_release_hold_until_us[btn];
+        if (hold_until != 0 && (int32_t)(hold_until - now) > 0) {
+            state &= (uint8_t)~mask;
+        } else {
+            s_release_hold_until_us[btn] = 0;
+        }
+    }
+
+    return state;
+}
+
+static void publish_current_state(uint32_t now, bool prime_only) {
+    if (s_pio == NULL) return;
+
+    uint tx_depth = pio_sm_get_tx_fifo_level(s_pio, s_sm);
+    if (tx_depth > s_latency.tx_fifo_max_depth) {
+        s_latency.tx_fifo_max_depth = tx_depth;
+    }
+
+    if (prime_only && tx_depth != 0) {
+        return;
+    }
+
+    if (tx_depth != 0) {
+        s_latency.pio_overwrite_words += tx_depth;
+        pio_sm_clear_fifos(s_pio, s_sm);
+    }
+
+    // PIO uses push-pull with OUT PINS (not PINDIRS).
+    // current_nes_state is active-low (0=pressed, 1=not pressed) — send as-is.
+    //   PIO bit=0 -> pin LOW  -> NES sees 0 (pressed)
+    //   PIO bit=1 -> pin HIGH -> NES sees 1 (not pressed)
+    pio_sm_put(s_pio, s_sm, (uint32_t)current_nes_state);
+    s_latency.pio_publish_count++;
+    if (prime_only) {
+        s_latency.pio_prime_count++;
+    }
+    s_latency.last_pio_publish_us = now;
+    trace_select(prime_only ? "pio-prime" : "pio-update", current_nes_state, now);
+}
+
+static void update_exposed_state(uint32_t now) {
+    uint8_t new_state = compute_exposed_state(now);
+    if (new_state == current_nes_state) {
+        return;
+    }
+
+    current_nes_state = new_state;
+    s_latency.exposed_state_changes++;
+    s_latency.last_state_change_us = now;
+    trace_select("state-change", current_nes_state, now);
+    publish_current_state(now, false);
+}
+
+// Update keyboard-derived state from a 6-byte boot report keycode array
 static void process_boot_report(const uint8_t keycodes[6]) {
     uint8_t new_state = 0xFF; // start with all unpressed
+    uint32_t now = now_us();
+    uint8_t prev_keyboard_state = s_keyboard_nes_state;
+
+    s_latency.hid_reports++;
+    s_latency.last_hid_report_us = now;
 
     // Check each pressed key against our bindings
     for (int k = 0; k < 6; k++) {
@@ -116,13 +253,43 @@ static void process_boot_report(const uint8_t keycodes[6]) {
     // Update held keys tracking
     memcpy(s_held_keys, keycodes, 6);
 
+    for (int btn = 0; btn < NES_NUM_BUTTONS; btn++) {
+        bool was_pressed = bit_is_pressed(prev_keyboard_state, btn);
+        bool now_pressed = bit_is_pressed(new_state, btn);
+
+        if (was_pressed == now_pressed) {
+            continue;
+        }
+
+        if (now_pressed) {
+            s_press_started_us[btn] = now;
+            s_release_hold_until_us[btn] = 0;
+            s_latency.usb_press_edges[btn]++;
+            if (btn == NES_BTN_SELECT) {
+                trace_select("usb-press", new_state, now);
+            }
+        } else {
+            uint32_t pressed_at = s_press_started_us[btn];
+            uint32_t min_release_time = pressed_at + NES_TAP_STRETCH_US;
+            if (pressed_at != 0 && (int32_t)(min_release_time - now) > 0) {
+                s_release_hold_until_us[btn] = min_release_time;
+            } else {
+                s_release_hold_until_us[btn] = 0;
+            }
+            if (btn == NES_BTN_SELECT) {
+                trace_select("usb-release", new_state, now);
+            }
+        }
+    }
+
+    s_keyboard_nes_state = new_state;
+
     // Dip LED briefly on any keypress so we know reports are arriving
     if (new_state != 0xFF) {
         led_dip();
     }
 
-    nes_button_state = new_state;
-    push_to_pio(new_state);
+    update_exposed_state(now);
 }
 
 // ---------------------------------------------------------------------------
@@ -132,6 +299,17 @@ static void process_boot_report(const uint8_t keycodes[6]) {
 void usb_hid_set_pio(PIO pio, uint sm) {
     s_pio = pio;
     s_sm  = sm;
+    publish_current_state(now_us(), false);
+}
+
+void usb_hid_task(void) {
+    uint32_t now = now_us();
+
+    update_exposed_state(now);
+
+    if (s_pio != NULL && pio_sm_is_tx_fifo_empty(s_pio, s_sm)) {
+        publish_current_state(now, true);
+    }
 }
 
 bool usb_hid_keyboard_connected(void) {
@@ -179,6 +357,59 @@ void usb_hid_print_poll_summary(void) {
         }
     }
     printf("\n");
+}
+
+void usb_hid_note_nes_latch_irq(void) {
+    uint32_t now = now_us();
+    uint8_t latched_state = current_nes_state;
+
+    for (int btn = 0; btn < NES_NUM_BUTTONS; btn++) {
+        if (!bit_is_pressed(s_last_latched_state, btn) &&
+            bit_is_pressed(latched_state, btn)) {
+            s_latency.nes_visible_press_edges[btn]++;
+        }
+    }
+
+    s_last_latched_state = latched_state;
+    s_latency.nes_latches++;
+    s_latency.last_latch_us = now;
+    trace_select("nes-latch", latched_state, now);
+}
+
+void usb_hid_print_latency_summary(void) {
+    static const int buttons_to_report[] = {
+        NES_BTN_A, NES_BTN_B, NES_BTN_SELECT, NES_BTN_START
+    };
+    latency_stats_t snapshot;
+    uint32_t irq_state = save_and_disable_interrupts();
+
+    snapshot = s_latency;
+    memset(&s_latency, 0, sizeof(s_latency));
+
+    restore_interrupts(irq_state);
+
+    printf("[latency] hid_reports=%lu state_changes=%lu pio_put=%lu primes=%lu "
+           "overwrite_words=%lu tx_depth_max=%lu latches=%lu "
+           "last_us{hid=%lu,state=%lu,pio=%lu,latch=%lu}\n",
+           (unsigned long)snapshot.hid_reports,
+           (unsigned long)snapshot.exposed_state_changes,
+           (unsigned long)snapshot.pio_publish_count,
+           (unsigned long)snapshot.pio_prime_count,
+           (unsigned long)snapshot.pio_overwrite_words,
+           (unsigned long)snapshot.tx_fifo_max_depth,
+           (unsigned long)snapshot.nes_latches,
+           (unsigned long)snapshot.last_hid_report_us,
+           (unsigned long)snapshot.last_state_change_us,
+           (unsigned long)snapshot.last_pio_publish_us,
+           (unsigned long)snapshot.last_latch_us);
+
+    for (size_t i = 0; i < sizeof(buttons_to_report) / sizeof(buttons_to_report[0]); i++) {
+        int btn = buttons_to_report[i];
+        printf("[latency] %-6s usb_presses=%lu nes_visible=%lu\n",
+               button_name_from_index(btn),
+               (unsigned long)snapshot.usb_press_edges[btn],
+               (unsigned long)snapshot.nes_visible_press_edges[btn]);
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -269,8 +500,11 @@ void tuh_hid_umount_cb(uint8_t dev_addr, uint8_t instance) {
 
     if (s_keyboard_count == 0) {
         // All keyboards disconnected - release all buttons
-        nes_button_state = 0xFF;
-        push_to_pio(0xFF);
+        s_keyboard_nes_state = 0xFF;
+        memset(s_press_started_us, 0, sizeof(s_press_started_us));
+        memset(s_release_hold_until_us, 0, sizeof(s_release_hold_until_us));
+        current_nes_state = 0xFF;
+        publish_current_state(now_us(), false);
         memset(s_held_keys, 0, sizeof(s_held_keys));
         s_last_pressed_key = 0;
         led_set_mode(LED_MODE_SLOW_BLINK);
