@@ -1,0 +1,41 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "e0b3cd13-239e-4c1f-87b7-71b368041b81")
+	(paper "A4")
+	(lib_symbols)
+	(hierarchical_label "SWCLK"
+		(shape output)
+		(at 130.81 90.17 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1b41d879-e5e6-44ff-b03a-a8c7cd25b52e")
+	)
+	(hierarchical_label "RUN"
+		(shape output)
+		(at 132.08 96.52 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e7f98d81-75a1-43f6-9da9-0025f8e71928")
+	)
+	(hierarchical_label "SWDIO"
+		(shape output)
+		(at 130.81 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e94c6d00-8f6e-4c07-9acb-b34c237ec9d6")
+	)
+)
