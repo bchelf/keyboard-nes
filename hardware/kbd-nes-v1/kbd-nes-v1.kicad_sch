@@ -560,7 +560,7 @@
 				(justify left)
 			)
 		)
-		(pin "FAULT_N" output
+		(pin "FAULT_N" input
 			(at 190.5 72.39 180)
 			(uuid "dcfeb392-845d-4e82-a183-5cfe8008cf75")
 			(effects

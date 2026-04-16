@@ -8743,6 +8743,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C20625731 "
+			(at 63.5 154.94 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "96e9988f-a5ad-4fcf-83bc-b9a0892d42d7")
 		)

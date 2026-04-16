@@ -718,6 +718,300 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Custom TI Power Switch:TPS2051BDR"
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "U1"
+				(at 27.94 10.16 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(property "Value" "TPS2051BDR"
+				(at 27.94 7.62 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(property "Footprint" "D8"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+				)
+			)
+			(property "Datasheet" "https://www.ti.com/lit/gpn/tps2051b"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "TPS2051BDR"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "D8 D8-M D8-L"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "TPS2051BDR_0_1"
+				(polyline
+					(pts
+						(xy 7.62 5.08) (xy 7.62 -12.7)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.62 -12.7) (xy 48.26 -12.7)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 48.26 5.08) (xy 7.62 5.08)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 48.26 -12.7) (xy 48.26 5.08)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin power_in line
+					(at 0 0 0)
+					(length 7.62)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 0 -2.54 0)
+					(length 7.62)
+					(name "IN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 0 -5.08 0)
+					(length 7.62)
+					(name "IN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 0 -7.62 0)
+					(length 7.62)
+					(name "*EN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 55.88 -7.62 180)
+					(length 7.62)
+					(name "*OC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "TPS2051BDR_1_1"
+				(pin passive line
+					(at 55.88 -5.08 180)
+					(length 7.62)
+					(name "OUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 55.88 -2.54 180)
+					(length 7.62)
+					(name "OUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 55.88 0 180)
+					(length 7.62)
+					(name "OUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:C"
 			(pin_numbers
 				(hide yes)
@@ -1013,253 +1307,18 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Power_Management:TPS2051BDR"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "U"
-				(at -7.62 -6.35 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "TPS2051BDR"
-				(at -12.192 6.858 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "Package_TO_SOT_SMD:SOT-23-8"
-				(at 1.27 -7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Datasheet" ""
-				(at 1.27 -10.16 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Description" "0.5A Current limited power switch, single channel, output discharge, reverse blocking, SOT-23-5"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "Limit USB Active High"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "SOT?23*"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "TPS2051BDR_0_1"
-				(rectangle
-					(start -7.62 5.08)
-					(end 7.62 -5.08)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "TPS2051BDR_1_1"
-				(pin power_out line
-					(at 10.16 -2.54 180)
-					(length 2.54)
-					(name "OUT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -1.27 -7.62 90)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin open_collector line
-					(at 10.16 2.54 180)
-					(length 2.54)
-					(name "~{FLT}"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 2.54 7.62 270)
-					(length 2.54)
-					(name "EN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -10.16 3.81 0)
-					(length 2.54)
-					(name "IN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -10.16 1.27 0)
-					(length 2.54)
-					(name "IN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -10.16 -1.27 0)
-					(length 2.54)
-					(name "IN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -10.16 -3.81 0)
-					(length 2.54)
-					(name "IN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
+	)
+	(junction
+		(at 191.77 97.79)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3018ea01-562d-4890-b988-4dedaf5c865d")
+	)
+	(junction
+		(at 135.89 99.06)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7e6b4451-8370-442b-abf8-2ab0974a90d4")
 	)
 	(junction
 		(at 127 58.42)
@@ -1274,28 +1333,16 @@
 		(uuid "8da7f919-db60-4270-8d49-7c64fa7cdb75")
 	)
 	(junction
-		(at 167.64 90.17)
+		(at 191.77 102.87)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "9d4fd70d-9663-4816-8a2b-95ecc9b0847a")
+		(uuid "94fb6853-6526-41a7-8f1a-1b6b06c94bee")
 	)
 	(junction
 		(at 121.92 77.47)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "adf5eca8-8a7b-46ad-94de-ebd0a84c0d44")
-	)
-	(junction
-		(at 167.64 92.71)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ae4989de-84cc-481a-813b-31d859544ec1")
-	)
-	(junction
-		(at 167.64 91.44)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c47e33dc-8418-405b-b3df-3369312acd75")
 	)
 	(junction
 		(at 139.7 58.42)
@@ -1326,6 +1373,16 @@
 			(type default)
 		)
 		(uuid "07565b2d-97cb-4db2-b992-03115090f0ce")
+	)
+	(wire
+		(pts
+			(xy 191.77 114.3) (xy 191.77 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0a4dc3e5-c913-4442-9968-765ba7f3a841")
 	)
 	(wire
 		(pts
@@ -1369,16 +1426,6 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 93.98) (xy 138.43 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "21351d2d-8453-403b-91e8-ae8f249cb424")
-	)
-	(wire
-		(pts
 			(xy 119.38 76.2) (xy 121.92 76.2)
 		)
 		(stroke
@@ -1396,6 +1443,16 @@
 			(type default)
 		)
 		(uuid "249473e3-a4aa-49a6-a6bc-959c9ac40019")
+	)
+	(wire
+		(pts
+			(xy 132.08 102.87) (xy 135.89 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2d6ba7fe-8f32-4a96-8dd9-ae34ac38c03c")
 	)
 	(wire
 		(pts
@@ -1429,6 +1486,16 @@
 	)
 	(wire
 		(pts
+			(xy 135.89 99.06) (xy 135.89 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4444ead8-08ab-42c7-913c-f70e43085d27")
+	)
+	(wire
+		(pts
 			(xy 121.92 82.55) (xy 121.92 83.82)
 		)
 		(stroke
@@ -1439,6 +1506,16 @@
 	)
 	(wire
 		(pts
+			(xy 191.77 97.79) (xy 199.39 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4bae0623-54f2-4c4f-b71b-83882bbe1be7")
+	)
+	(wire
+		(pts
 			(xy 127 46.99) (xy 127 50.8)
 		)
 		(stroke
@@ -1446,26 +1523,6 @@
 			(type default)
 		)
 		(uuid "5459c052-6bfe-457b-a758-acb26a16e0fc")
-	)
-	(wire
-		(pts
-			(xy 158.75 92.71) (xy 167.64 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5a8681f8-7461-49d1-b414-63018bfee7e8")
-	)
-	(wire
-		(pts
-			(xy 158.75 87.63) (xy 167.64 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "665af687-0f77-4bdd-88f4-157ac6e3fa9e")
 	)
 	(wire
 		(pts
@@ -1499,23 +1556,13 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 87.63) (xy 167.64 91.44)
+			(xy 191.77 97.79) (xy 191.77 100.33)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "734bfde8-a83c-4544-acf7-cffdb3a9ac74")
-	)
-	(wire
-		(pts
-			(xy 167.64 92.71) (xy 167.64 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8352322c-17db-42a5-bc3b-6e8fb39be047")
+		(uuid "73395c59-bfca-41bf-aa12-47e2c6f4df31")
 	)
 	(wire
 		(pts
@@ -1526,6 +1573,26 @@
 			(type default)
 		)
 		(uuid "85c890b0-10e6-4680-b3c3-e4cc024a67e5")
+	)
+	(wire
+		(pts
+			(xy 191.77 95.25) (xy 191.77 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "885a6faa-7146-4f47-b079-54a99834637c")
+	)
+	(wire
+		(pts
+			(xy 135.89 97.79) (xy 135.89 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8938ecfa-35fa-4013-bdaa-7b4798ebaca5")
 	)
 	(wire
 		(pts
@@ -1559,53 +1626,13 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 105.41) (xy 134.62 109.22)
+			(xy 191.77 102.87) (xy 200.66 102.87)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "9b8cb760-471f-4ee9-90d5-cbb01266000b")
-	)
-	(wire
-		(pts
-			(xy 167.64 95.25) (xy 167.64 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9e2ca5de-3b13-44fa-aa06-d95f79bac223")
-	)
-	(wire
-		(pts
-			(xy 134.62 93.98) (xy 134.62 97.79)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a210820d-c9f6-4cf3-bf84-d938140cf625")
-	)
-	(wire
-		(pts
-			(xy 146.05 99.06) (xy 146.05 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a455242e-74a1-486a-9903-3e491ce77457")
-	)
-	(wire
-		(pts
-			(xy 167.64 91.44) (xy 171.45 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a6d66aee-7dd0-4657-84ad-57556c2a1bd7")
+		(uuid "a86b080f-3a94-4a6f-866e-fac25d422597")
 	)
 	(wire
 		(pts
@@ -1629,26 +1656,6 @@
 	)
 	(wire
 		(pts
-			(xy 158.75 90.17) (xy 167.64 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b4e49d97-c49e-47ff-8872-27fc2a2cd7ca")
-	)
-	(wire
-		(pts
-			(xy 149.86 81.28) (xy 149.86 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b653fae4-259f-408c-8ba7-c27ef87c4041")
-	)
-	(wire
-		(pts
 			(xy 121.92 63.5) (xy 121.92 58.42)
 		)
 		(stroke
@@ -1659,23 +1666,13 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 88.9) (xy 138.43 88.9)
+			(xy 191.77 119.38) (xy 193.04 119.38)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "be62eb68-72fe-4486-ab46-4a35a656d02e")
-	)
-	(wire
-		(pts
-			(xy 158.75 95.25) (xy 167.64 95.25)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c0b4a7ba-bcdf-4122-af99-9a8edeb26246")
+		(uuid "bb599a8f-d83c-4fb5-b13d-d59334dffc3c")
 	)
 	(wire
 		(pts
@@ -1689,6 +1686,26 @@
 	)
 	(wire
 		(pts
+			(xy 135.89 87.63) (xy 135.89 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "db24a069-3a63-46fd-9c1e-1152c9134887")
+	)
+	(wire
+		(pts
+			(xy 129.54 99.06) (xy 135.89 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e476bc00-68fa-4844-afd3-64f3e46c9bf5")
+	)
+	(wire
+		(pts
 			(xy 119.38 83.82) (xy 121.92 83.82)
 		)
 		(stroke
@@ -1699,6 +1716,16 @@
 	)
 	(wire
 		(pts
+			(xy 191.77 102.87) (xy 191.77 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e7d5a348-ea98-4acf-8239-0bfbd5c942b1")
+	)
+	(wire
+		(pts
 			(xy 137.16 71.12) (xy 142.24 71.12)
 		)
 		(stroke
@@ -1706,16 +1733,6 @@
 			(type default)
 		)
 		(uuid "e7ff8036-d30f-436d-a747-0852c22cd0ff")
-	)
-	(wire
-		(pts
-			(xy 129.54 118.11) (xy 129.54 125.73)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ed07c12e-cf53-4a76-8e47-659d661ebd44")
 	)
 	(wire
 		(pts
@@ -1737,35 +1754,25 @@
 		)
 		(uuid "f8daf21b-a8a8-4ead-99dd-7ede97b8da09")
 	)
-	(label "+5V_HOST"
-		(at 134.62 88.9 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 132.08 110.49) (xy 132.08 102.87)
 		)
-		(uuid "306de1fc-d559-4c95-870d-423ac2f698dc")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fd3fd4a0-6dad-43b0-bfbb-f1fbdc0b066f")
 	)
 	(label "GND"
-		(at 149.86 81.28 0)
+		(at 135.89 87.63 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "3d362231-91f9-4701-80ba-6022a455e000")
-	)
-	(label "+3V3"
-		(at 129.54 125.73 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "4e07215a-09bc-40d7-9dfd-42ee0d934769")
+		(uuid "3302684a-2686-40f0-ad7b-3cabeec213f4")
 	)
 	(label "+5V_HOST"
 		(at 151.13 58.42 0)
@@ -1787,6 +1794,16 @@
 		)
 		(uuid "7fb4d5cf-c384-428e-9309-c20e6f1df7f5")
 	)
+	(label "+5V_HOST"
+		(at 199.39 97.79 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "88deef57-7d27-400a-a824-5f32c2f757d8")
+	)
 	(label "GND"
 		(at 127 46.99 0)
 		(effects
@@ -1806,16 +1823,6 @@
 			(justify left bottom)
 		)
 		(uuid "da104093-a1f4-466b-90d0-23bacf313acb")
-	)
-	(label "+3V3"
-		(at 134.62 109.22 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "da31a0c2-88c9-4b86-a2d3-fee1523e0e0a")
 	)
 	(label "GND"
 		(at 96.52 107.95 270)
@@ -1860,7 +1867,7 @@
 	)
 	(hierarchical_label "HOST_VBUS_EN"
 		(shape input)
-		(at 146.05 104.14 0)
+		(at 132.08 110.49 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1880,38 +1887,16 @@
 		)
 		(uuid "4a468d8b-4837-459a-b6ca-80b78a023e9a")
 	)
-	(hierarchical_label "FAULT_N"
-		(shape output)
-		(at 134.62 93.98 180)
+	(hierarchical_label "+5V_IN"
+		(shape input)
+		(at 129.54 99.06 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right)
 		)
-		(uuid "75700cc7-72b1-473e-b3c6-b2d1674eadaa")
-	)
-	(hierarchical_label "HOST_3V3_IN"
-		(shape input)
-		(at 129.54 118.11 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "a520a1b7-6752-46f8-a514-cae974475442")
-	)
-	(hierarchical_label "+5V_IN"
-		(shape input)
-		(at 171.45 91.44 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "ac357454-d367-4b53-aad5-3608a16a9ec0")
+		(uuid "b16a474c-e724-4a56-9df5-7d6e64f5c6e9")
 	)
 	(hierarchical_label "USB_HOST_GND"
 		(shape input)
@@ -1923,6 +1908,28 @@
 			(justify left)
 		)
 		(uuid "d86d27f9-f46a-4082-9b1d-1ad26f0f4de9")
+	)
+	(hierarchical_label "HOST_3V3_IN"
+		(shape input)
+		(at 193.04 119.38 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e370d767-1e31-476c-8824-911bfe49e042")
+	)
+	(hierarchical_label "FAULT_N"
+		(shape input)
+		(at 200.66 102.87 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e74db44a-49da-4faf-9156-08f65b86d56c")
 	)
 	(symbol
 		(lib_id "Device:R")
@@ -2016,8 +2023,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Power_Management:TPS2051BDR")
-		(at 148.59 91.44 180)
+		(lib_id "Device:R")
+		(at 191.77 110.49 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2026,10 +2033,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "271484b8-6240-40e7-9829-9b2c18ac5bb3")
-		(property "Reference" "U5"
-			(at 156.21 85.09 0)
-			(hide yes)
+		(uuid "213b08c4-6549-4cce-a6d7-6ab6c45984bb")
+		(property "Reference" "R10"
+			(at 194.31 109.2199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2039,20 +2045,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TPS2051BDR"
-			(at 152.9781 83.82 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Package_SO:SOIC-8_5.3x5.3mm_P1.27mm"
-			(at 147.32 83.82 0)
-			(hide yes)
+		(property "Value" "10k"
+			(at 194.31 111.7599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2060,22 +2054,21 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 189.992 110.49 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
 		)
 		(property "Datasheet" ""
-			(at 147.32 81.28 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Description" "0.5A Current limited power switch, single channel, output discharge, reverse blocking, SOT-23-5"
-			(at 148.59 91.44 0)
+			(at 191.77 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2085,8 +2078,8 @@
 				)
 			)
 		)
-		(property "LCSC" "C13892"
-			(at 148.59 91.44 0)
+		(property "Description" "Resistor"
+			(at 191.77 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2096,34 +2089,27 @@
 				)
 			)
 		)
-		(pin "7"
-			(uuid "4848f50f-384e-4f09-8205-cd8ff74d642d")
+		(property "LCSC" "C25744"
+			(at 191.77 110.49 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
 		)
 		(pin "1"
-			(uuid "dd452e34-d0b5-478f-afe7-2724ef0c6b03")
-		)
-		(pin "8"
-			(uuid "dc762cee-8886-47b4-90a2-f48f7b1db858")
-		)
-		(pin "5"
-			(uuid "6348d91a-cc54-4be2-a586-2b630b8e6e0e")
-		)
-		(pin "4"
-			(uuid "cf5fbe7d-6534-4774-afe2-2b95e9fbd842")
-		)
-		(pin "6"
-			(uuid "de1253bb-af0c-4ff7-91d8-3736021dec91")
+			(uuid "827c4170-0aa5-4e2a-8f4f-63d7790532f3")
 		)
 		(pin "2"
-			(uuid "a8d529f8-4f06-482d-aa67-90ba3237ba90")
-		)
-		(pin "3"
-			(uuid "c3488ea1-023c-49c4-8093-d0d698e22e35")
+			(uuid "77adecd6-ea06-4d10-942e-761de521b716")
 		)
 		(instances
 			(project "kbd-nes-v1"
 				(path "/7f2dbb6c-7ce5-4460-8264-cfc72d511629/c36b6f3e-adc5-43dc-a925-bc52a2590c2b"
-					(reference "U5")
+					(reference "R10")
 					(unit 1)
 				)
 			)
@@ -2310,99 +2296,6 @@
 			(project "kbd-nes-v1"
 				(path "/7f2dbb6c-7ce5-4460-8264-cfc72d511629/c36b6f3e-adc5-43dc-a925-bc52a2590c2b"
 					(reference "C20")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 134.62 101.6 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "61939380-745b-4ed5-8e38-224427addc9b")
-		(property "Reference" "R10"
-			(at 137.16 100.3299 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10k"
-			(at 137.16 102.8699 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 132.842 101.6 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 134.62 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 134.62 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" "C25744"
-			(at 134.62 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "e777a7ef-86d8-4776-a834-32c05ef0f452")
-		)
-		(pin "1"
-			(uuid "9dc6c5b4-ba77-4b7c-82c4-0709f8a0e443")
-		)
-		(instances
-			(project "kbd-nes-v1"
-				(path "/7f2dbb6c-7ce5-4460-8264-cfc72d511629/c36b6f3e-adc5-43dc-a925-bc52a2590c2b"
-					(reference "R10")
 					(unit 1)
 				)
 			)
@@ -2630,6 +2523,106 @@
 			(project "kbd-nes-v1"
 				(path "/7f2dbb6c-7ce5-4460-8264-cfc72d511629/c36b6f3e-adc5-43dc-a925-bc52a2590c2b"
 					(reference "J4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Custom TI Power Switch:TPS2051BDR")
+		(at 135.89 95.25 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e436145c-5ff6-431d-bfef-70cac7010f48")
+		(property "Reference" "U5"
+			(at 163.83 85.09 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Value" "TPS2051BDR"
+			(at 163.83 87.63 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Footprint" "TI parts:D8"
+			(at 135.89 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/gpn/tps2051b"
+			(at 135.89 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 135.89 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "5"
+			(uuid "53ec6baa-4afc-41b0-8cad-1c2604493fd9")
+		)
+		(pin "4"
+			(uuid "ea547dde-0d8b-473b-af86-1dac1fdc9ed1")
+		)
+		(pin "7"
+			(uuid "e8e6ff00-e1e4-4d80-a850-db402594b7c1")
+		)
+		(pin "1"
+			(uuid "8cb368da-7c74-4327-be69-cd7b54f4ad8d")
+		)
+		(pin "8"
+			(uuid "fbf8c7cc-323e-4db0-b9e3-776a91d44b38")
+		)
+		(pin "6"
+			(uuid "dee89b0a-8cd1-4ad1-8200-090b5314052a")
+		)
+		(pin "2"
+			(uuid "96c8ffe7-01c1-472d-bd8c-fff6169b880d")
+		)
+		(pin "3"
+			(uuid "1704124a-1f65-4179-8a7d-75ec65a169ed")
+		)
+		(instances
+			(project "kbd-nes-v1"
+				(path "/7f2dbb6c-7ce5-4460-8264-cfc72d511629/c36b6f3e-adc5-43dc-a925-bc52a2590c2b"
+					(reference "U5")
 					(unit 1)
 				)
 			)

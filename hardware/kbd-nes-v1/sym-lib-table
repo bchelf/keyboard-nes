@@ -1,0 +1,4 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "Custom TI Power Switch") (type "KiCad") (uri "/Users/bchelf/Downloads/KiCADv6/2026-04-16_04-35-59.kicad_sym") (options "") (descr ""))
+)
