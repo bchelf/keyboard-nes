@@ -15,19 +15,21 @@
 #include "led.h"
 
 // GPIO assignments
-#define GPIO_LATCH   2
-#define GPIO_CLOCK   3
-#define GPIO_DATA    4
-#define GPIO_CONFIG  15  // active low, internal pullup
-#define GPIO_LED     25
+#define GPIO_HOST_VBUS_EN  10  // active high: enables USB host VBUS power switch
+#define GPIO_FAULT_N       11  // active low fault output from USB host power switch
+#define GPIO_CONFIG        15  // active low, internal pullup
+#define GPIO_LATCH         17
+#define GPIO_CLOCK         18
+#define GPIO_DATA          19
+#define GPIO_LED           25
 
 static PIO  s_pio = pio0;
 static uint s_sm  = 0;
 static uint s_pio_offset = 0;
 
 // Signal monitors: incremented in GPIO IRQs, checked in the main loop.
-static volatile uint32_t s_latch_count = 0;  // LATCH rising edges  (GP2)
-static volatile uint32_t s_clock_count = 0;  // CLK falling edges   (GP3)
+static volatile uint32_t s_latch_count = 0;  // LATCH rising edges
+static volatile uint32_t s_clock_count = 0;  // CLK falling edges
 
 static void nes_signal_irq_handler(uint gpio, uint32_t events) {
     (void)events;
@@ -43,14 +45,24 @@ static void pio_init(void) {
     nes_controller_program_init(s_pio, s_sm, s_pio_offset,
                                 GPIO_LATCH, GPIO_CLOCK, GPIO_DATA);
 
-    // Attach a rising-edge GPIO interrupt to GP2 (LATCH) so the main loop
+    // Attach a rising-edge GPIO interrupt to LATCH so the main loop
     // can tell whether the NES is actually sending latch pulses.
     // GPIO interrupts fire on the raw pin state and work alongside PIO ownership.
-    // GPIO_IRQ_EDGE_RISE on LATCH (GP2), GPIO_IRQ_EDGE_FALL on CLK (GP3).
+    // GPIO_IRQ_EDGE_RISE on LATCH, GPIO_IRQ_EDGE_FALL on CLK.
     // Both share one callback; the SDK allows only one callback per core.
     gpio_set_irq_enabled_with_callback(GPIO_LATCH, GPIO_IRQ_EDGE_RISE,
                                        true, nes_signal_irq_handler);
     gpio_set_irq_enabled(GPIO_CLOCK, GPIO_IRQ_EDGE_FALL, true);
+}
+
+static void host_power_init(void) {
+    gpio_init(GPIO_FAULT_N);
+    gpio_set_dir(GPIO_FAULT_N, GPIO_IN);
+    gpio_pull_up(GPIO_FAULT_N);
+
+    gpio_init(GPIO_HOST_VBUS_EN);
+    gpio_put(GPIO_HOST_VBUS_EN, 1);
+    gpio_set_dir(GPIO_HOST_VBUS_EN, GPIO_OUT);
 }
 
 int main(void) {
@@ -60,6 +72,9 @@ int main(void) {
     // Initialize LED
     led_init();
     led_set_mode(LED_MODE_SLOW_BLINK);
+
+    // Enable host-side VBUS before starting the USB host stack.
+    host_power_init();
 
     // Initialize PIO for NES protocol
     pio_init();
@@ -101,6 +116,7 @@ int main(void) {
     uint32_t last_latch_check = last_poll;
     uint32_t last_latch_seen  = s_latch_count;
     uint32_t last_clock_seen  = s_clock_count;
+    bool last_fault_asserted  = !gpio_get(GPIO_FAULT_N);
 
     while (true) {
         // TinyUSB host task (must be called every iteration)
@@ -121,9 +137,17 @@ int main(void) {
             usb_hid_print_latency_summary();
         }
 
+        bool fault_asserted = !gpio_get(GPIO_FAULT_N);
+        if (fault_asserted != last_fault_asserted) {
+            last_fault_asserted = fault_asserted;
+            printf("[usb-host-power] FAULT_N %s\n",
+                   fault_asserted ? "asserted" : "released");
+        }
+
         // Latch monitor: once per second, check whether the NES has been
         // sending latch pulses. A single quick flash = NES is polling.
-        // No flash = LATCH never reaching GP2 (wiring or level-shifter issue).
+        // No flash = LATCH never reaching the configured GPIO
+        // (wiring or level-shifter issue).
         if (now - last_latch_check >= 1000) {
             last_latch_check = now;
             uint32_t latches = s_latch_count - last_latch_seen;

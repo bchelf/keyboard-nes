@@ -195,11 +195,11 @@ static void publish_current_state(uint32_t now, bool prime_only) {
         pio_sm_clear_fifos(s_pio, s_sm);
     }
 
-    // PIO uses push-pull with OUT PINS (not PINDIRS).
-    // current_nes_state is active-low (0=pressed, 1=not pressed) — send as-is.
-    //   PIO bit=0 -> pin LOW  -> NES sees 0 (pressed)
-    //   PIO bit=1 -> pin HIGH -> NES sees 1 (not pressed)
-    pio_sm_put(s_pio, s_sm, (uint32_t)current_nes_state);
+    // GPIO_DATA drives a 2N7002 pull-down enable, so invert the active-low
+    // NES state into active-high gate control bits.
+    //   state bit=0 pressed     -> PIO bit=1 -> MOSFET on  -> NES DATA low
+    //   state bit=1 not pressed -> PIO bit=0 -> MOSFET off -> NES DATA high
+    pio_sm_put(s_pio, s_sm, (uint32_t)((uint8_t)~current_nes_state));
     s_latency.pio_publish_count++;
     if (prime_only) {
         s_latency.pio_prime_count++;
