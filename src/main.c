@@ -13,6 +13,7 @@
 #include "usb_hid.h"
 #include "key_bindings.h"
 #include "led.h"
+#include "debug_log.h"
 
 // GPIO assignments
 #define GPIO_HOST_VBUS_EN  10  // active high: enables USB host VBUS power switch
@@ -99,7 +100,7 @@ int main(void) {
     // Initialize TinyUSB host
     tusb_init();
 
-    printf("nes_kbd_adapter: boot complete, waiting for USB keyboard\n");
+    NES_LOG("nes_kbd_adapter: boot complete, waiting for USB keyboard\n");
 
     if (remap_mode) {
         // Enter remap mode - blocks until complete or timeout
@@ -140,8 +141,8 @@ int main(void) {
         bool fault_asserted = !gpio_get(GPIO_FAULT_N);
         if (fault_asserted != last_fault_asserted) {
             last_fault_asserted = fault_asserted;
-            printf("[usb-host-power] FAULT_N %s\n",
-                   fault_asserted ? "asserted" : "released");
+            NES_LOG("[usb-host-power] FAULT_N %s\n",
+                    fault_asserted ? "asserted" : "released");
         }
 
         // Latch monitor: once per second, check whether the NES has been
@@ -155,8 +156,8 @@ int main(void) {
             last_latch_seen  = s_latch_count;
             last_clock_seen  = s_clock_count;
 
-            printf("[nes] last second: %lu LATCH pulses, %lu CLK edges\n",
-                   (unsigned long)latches, (unsigned long)clocks);
+            NES_LOG("[nes] last second: %lu LATCH pulses, %lu CLK edges\n",
+                    (unsigned long)latches, (unsigned long)clocks);
 
             if (clocks >= 400) {
                 led_flash(1);  // CLK arriving correctly (~480 expected at 60Hz x 8)

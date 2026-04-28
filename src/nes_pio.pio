@@ -30,11 +30,13 @@
 ;   within the first ~559 ns of CLK N being LOW; our output arrives ~1-3 µs
 ;   later (2-cycle synchroniser + 1 instruction), so there is no race.
 ;
-; pull noblock fallback: X is pre-loaded with 0 (all MOSFETs off = all not-pressed)
-;   before each pull, so an empty FIFO silently releases all buttons.
+; pull noblock fallback: X holds the last controller word consumed from FIFO.
+;   If firmware is late priming the next word, the previous button state is
+;   repeated for that NES poll instead of silently releasing all buttons.
 
 .program nes_controller
 .origin 0
+    set x, 0                ; initial fallback = all MOSFETs off/not pressed
 
 .wrap_target
     set pins, 0             ; pull-down disabled = NES DATA high/not pressed
@@ -42,19 +44,19 @@
 wait_latch:
     wait 1 pin 0            ; wait for LATCH rising edge
 
-    mov x, null             ; X = 0x00000000 - fallback if FIFO is empty
-    pull noblock            ; OSR = FIFO word, or X (all not-pressed) if empty
+    pull noblock            ; OSR = FIFO word, or X (last state) if empty
+    mov x, osr              ; save this word as fallback for the next latch
     out pins, 1             ; drive A (bit 0) while LATCH is still HIGH
 
     wait 0 pin 0            ; LATCH falls; A is already stable on DATA
 
-    set x, 6               ; 7 more CLK pulses: CLK 1-7 (bits 1-7 = B through Right)
+    set y, 6               ; 7 more CLK pulses: CLK 1-7 (bits 1-7 = B through Right)
 
 bit_loop:
     wait 0 pin 1    ; NES reads current bit during low
     wait 1 pin 1    ; shift/register advances on rise
     out pins, 1     ; present next bit during high, stable before next low
-    jmp x-- bit_loop
+    jmp y-- bit_loop
 
     ; Right (bit 7) is now on DATA.  Must hold it through CLK 8↓ (NES reads Right).
     wait 0 pin 1    ; CLK8 low, NES reads Right

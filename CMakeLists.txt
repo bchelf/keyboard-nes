@@ -8,6 +8,8 @@ project(nes_kbd_adapter C CXX ASM)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 
+option(NES_ENABLE_LOGS "Enable UART debug logging" OFF)
+
 # Initialize the Pico SDK
 pico_sdk_init()
 
@@ -44,6 +46,7 @@ target_compile_definitions(nes_kbd_adapter PRIVATE
     PICO_DEFAULT_UART=0
     PICO_DEFAULT_UART_TX_PIN=0
     PICO_DEFAULT_UART_RX_PIN=1
+    NES_ENABLE_LOGS=$<BOOL:${NES_ENABLE_LOGS}>
 )
 
 # Link against required libraries

@@ -48,5 +48,5 @@ The firmware now records:
 - per-button USB press edges
 - per-button press edges that were actually visible on NES latch boundaries
 
-Set `NES_TRACE_SELECT` to `1` in `src/usb_hid.c` for a concise timestamp trace
-focused on Select.
+Set `NES_ENABLE_LOGS=1` at build time to enable firmware logging. Set
+`NES_TRACE_SELECT=1` for a concise timestamp trace focused on Select.

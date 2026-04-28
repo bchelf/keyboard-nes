@@ -1,6 +1,7 @@
 #include "usb_hid.h"
 #include "key_bindings.h"
 #include "led.h"
+#include "debug_log.h"
 
 #include "tusb.h"
 #include "hardware/pio.h"
@@ -65,6 +66,7 @@ typedef struct {
     uint32_t pio_prime_count;
     uint32_t tx_fifo_max_depth;
     uint32_t nes_latches;
+    uint32_t hid_error_reports;
     uint32_t usb_press_edges[NES_NUM_BUTTONS];
     uint32_t nes_visible_press_edges[NES_NUM_BUTTONS];
     uint32_t last_hid_report_us;
@@ -115,7 +117,7 @@ static void maybe_log_press_edges(uint8_t prev_state, uint8_t new_state) {
 #if NES_LOG_KEY_EDGES
     for (int btn = 0; btn < NES_NUM_BUTTONS; btn++) {
         if (!bit_is_pressed(prev_state, btn) && bit_is_pressed(new_state, btn)) {
-            printf("key edge -> NES %s\n", button_name_from_index(btn));
+            NES_LOG("key edge -> NES %s\n", button_name_from_index(btn));
         }
     }
 #else
@@ -138,16 +140,16 @@ static inline bool bit_is_pressed(uint8_t state, int btn) {
 
 #if NES_TRACE_SELECT
 static void trace_select(const char *stage, uint8_t state, uint32_t now) {
-    printf("[trace][Select] %s t=%luus pressed=%u state=0x%02X"
-           " hid_dt=%ldus state_dt=%ldus pio_dt=%ldus latch_dt=%ldus\n",
-           stage,
-           (unsigned long)now,
-           bit_is_pressed(state, NES_BTN_SELECT) ? 1u : 0u,
-           state,
-           (long)(now - s_latency.last_hid_report_us),
-           (long)(now - s_latency.last_state_change_us),
-           (long)(now - s_latency.last_pio_publish_us),
-           (long)(now - s_latency.last_latch_us));
+    NES_LOG("[trace][Select] %s t=%luus pressed=%u state=0x%02X"
+            " hid_dt=%ldus state_dt=%ldus pio_dt=%ldus latch_dt=%ldus\n",
+            stage,
+            (unsigned long)now,
+            bit_is_pressed(state, NES_BTN_SELECT) ? 1u : 0u,
+            state,
+            (long)(now - s_latency.last_hid_report_us),
+            (long)(now - s_latency.last_state_change_us),
+            (long)(now - s_latency.last_pio_publish_us),
+            (long)(now - s_latency.last_latch_us));
 }
 #else
 static void trace_select(const char *stage, uint8_t state, uint32_t now) {
@@ -229,6 +231,16 @@ static void process_boot_report(const uint8_t keycodes[6]) {
 
     s_latency.hid_reports++;
     s_latency.last_hid_report_us = now;
+
+    for (int k = 0; k < 6; k++) {
+        if (keycodes[k] > 0x00 && keycodes[k] < 0x04) {
+            s_latency.hid_error_reports++;
+            NES_LOG("[hid] ignoring keyboard error report: %02X %02X %02X %02X %02X %02X\n",
+                    keycodes[0], keycodes[1], keycodes[2],
+                    keycodes[3], keycodes[4], keycodes[5]);
+            return;
+        }
+    }
 
     // Check each pressed key against our bindings
     for (int k = 0; k < 6; k++) {
@@ -355,20 +367,20 @@ void usb_hid_print_poll_summary(void) {
     memset(s_poll_keys, 0, sizeof(s_poll_keys));
 
     if (count == 0) {
-        printf("[poll] no keys pressed in the last 5 seconds\n");
+        NES_LOG("[poll] no keys pressed in the last 5 seconds\n");
         return;
     }
 
-    printf("[poll] keys pressed in the last 5 seconds (%d):", count);
+    NES_LOG("[poll] keys pressed in the last 5 seconds (%d):", count);
     for (int i = 0; i < count; i++) {
         const char *btn = nes_button_name(keys[i]);
         if (btn) {
-            printf("  0x%02X(%s)", keys[i], btn);
+            NES_LOG("  0x%02X(%s)", keys[i], btn);
         } else {
-            printf("  0x%02X", keys[i]);
+            NES_LOG("  0x%02X", keys[i]);
         }
     }
-    printf("\n");
+    NES_LOG("\n");
 }
 
 void usb_hid_note_nes_latch_irq(void) {
@@ -400,27 +412,28 @@ void usb_hid_print_latency_summary(void) {
 
     restore_interrupts(irq_state);
 
-    printf("[latency] hid_reports=%lu state_changes=%lu pio_put=%lu primes=%lu "
-           "overwrite_words=%lu tx_depth_max=%lu latches=%lu "
-           "last_us{hid=%lu,state=%lu,pio=%lu,latch=%lu}\n",
-           (unsigned long)snapshot.hid_reports,
-           (unsigned long)snapshot.exposed_state_changes,
-           (unsigned long)snapshot.pio_publish_count,
-           (unsigned long)snapshot.pio_prime_count,
-           (unsigned long)snapshot.pio_overwrite_words,
-           (unsigned long)snapshot.tx_fifo_max_depth,
-           (unsigned long)snapshot.nes_latches,
-           (unsigned long)snapshot.last_hid_report_us,
-           (unsigned long)snapshot.last_state_change_us,
-           (unsigned long)snapshot.last_pio_publish_us,
-           (unsigned long)snapshot.last_latch_us);
+    NES_LOG("[latency] hid_reports=%lu error_reports=%lu state_changes=%lu "
+            "pio_put=%lu primes=%lu overwrite_words=%lu tx_depth_max=%lu "
+            "latches=%lu last_us{hid=%lu,state=%lu,pio=%lu,latch=%lu}\n",
+            (unsigned long)snapshot.hid_reports,
+            (unsigned long)snapshot.hid_error_reports,
+            (unsigned long)snapshot.exposed_state_changes,
+            (unsigned long)snapshot.pio_publish_count,
+            (unsigned long)snapshot.pio_prime_count,
+            (unsigned long)snapshot.pio_overwrite_words,
+            (unsigned long)snapshot.tx_fifo_max_depth,
+            (unsigned long)snapshot.nes_latches,
+            (unsigned long)snapshot.last_hid_report_us,
+            (unsigned long)snapshot.last_state_change_us,
+            (unsigned long)snapshot.last_pio_publish_us,
+            (unsigned long)snapshot.last_latch_us);
 
     for (size_t i = 0; i < sizeof(buttons_to_report) / sizeof(buttons_to_report[0]); i++) {
         int btn = buttons_to_report[i];
-        printf("[latency] %-6s usb_presses=%lu nes_visible=%lu\n",
-               button_name_from_index(btn),
-               (unsigned long)snapshot.usb_press_edges[btn],
-               (unsigned long)snapshot.nes_visible_press_edges[btn]);
+        NES_LOG("[latency] %-6s usb_presses=%lu nes_visible=%lu\n",
+                button_name_from_index(btn),
+                (unsigned long)snapshot.usb_press_edges[btn],
+                (unsigned long)snapshot.nes_visible_press_edges[btn]);
     }
 }
 
@@ -429,13 +442,13 @@ void usb_hid_print_latency_summary(void) {
 // ---------------------------------------------------------------------------
 
 void tuh_mount_cb(uint8_t dev_addr) {
-    printf("[usb] device mounted: addr=%u\n", dev_addr);
+    NES_LOG("[usb] device mounted: addr=%u\n", dev_addr);
     // 1 flash = USB device detected (fires before HID enumeration)
     led_flash(1);
 }
 
 void tuh_umount_cb(uint8_t dev_addr) {
-    printf("[usb] device unmounted: addr=%u\n", dev_addr);
+    NES_LOG("[usb] device unmounted: addr=%u\n", dev_addr);
 }
 
 // ---------------------------------------------------------------------------
@@ -449,10 +462,10 @@ void tuh_hid_mount_cb(uint8_t dev_addr, uint8_t instance,
 
     uint8_t const itf_protocol = tuh_hid_interface_protocol(dev_addr, instance);
 
-    printf("[hid] mount: addr=%u instance=%u protocol=%u (%s)\n",
-           dev_addr, instance, itf_protocol,
-           itf_protocol == HID_ITF_PROTOCOL_KEYBOARD ? "keyboard" :
-           itf_protocol == HID_ITF_PROTOCOL_MOUSE    ? "mouse"    : "other");
+    NES_LOG("[hid] mount: addr=%u instance=%u protocol=%u (%s)\n",
+            dev_addr, instance, itf_protocol,
+            itf_protocol == HID_ITF_PROTOCOL_KEYBOARD ? "keyboard" :
+            itf_protocol == HID_ITF_PROTOCOL_MOUSE    ? "mouse"    : "other");
 
     if (itf_protocol == HID_ITF_PROTOCOL_KEYBOARD) {
         // Boot-protocol keyboard: request boot protocol for fixed 8-byte reports
@@ -465,7 +478,7 @@ void tuh_hid_mount_cb(uint8_t dev_addr, uint8_t instance,
         led_set_mode(LED_MODE_SOLID_ON);
         led_flash(2);  // 2 flashes → solid = boot-protocol keyboard accepted
 
-        printf("[hid] boot-protocol keyboard accepted\n");
+        NES_LOG("[hid] boot-protocol keyboard accepted\n");
         tuh_hid_receive_report(dev_addr, instance);
 
     } else if (itf_protocol == HID_ITF_PROTOCOL_NONE && desc_report != NULL) {
@@ -475,8 +488,8 @@ void tuh_hid_mount_cb(uint8_t dev_addr, uint8_t instance,
         uint8_t n = tuh_hid_parse_report_descriptor(info, 8, desc_report, desc_len);
 
         for (uint8_t i = 0; i < n; i++) {
-            printf("[hid] report descriptor entry %u: usage_page=0x%02X usage=0x%02X report_id=%u\n",
-                   i, info[i].usage_page, info[i].usage, info[i].report_id);
+            NES_LOG("[hid] report descriptor entry %u: usage_page=0x%02X usage=0x%02X report_id=%u\n",
+                    i, info[i].usage_page, info[i].usage, info[i].report_id);
 
             if (info[i].usage_page == HID_USAGE_PAGE_DESKTOP &&
                 info[i].usage      == HID_USAGE_DESKTOP_KEYBOARD) {
@@ -490,8 +503,8 @@ void tuh_hid_mount_cb(uint8_t dev_addr, uint8_t instance,
                 led_set_mode(LED_MODE_SOLID_ON);
                 led_flash(2);  // 2 flashes → solid = report-protocol keyboard accepted
 
-                printf("[hid] report-protocol keyboard accepted, report_id=%u\n",
-                       info[i].report_id);
+                NES_LOG("[hid] report-protocol keyboard accepted, report_id=%u\n",
+                        info[i].report_id);
                 tuh_hid_receive_report(dev_addr, instance);
                 break;
             }
@@ -500,7 +513,7 @@ void tuh_hid_mount_cb(uint8_t dev_addr, uint8_t instance,
 }
 
 void tuh_hid_umount_cb(uint8_t dev_addr, uint8_t instance) {
-    printf("[hid] umount: addr=%u instance=%u\n", dev_addr, instance);
+    NES_LOG("[hid] umount: addr=%u instance=%u\n", dev_addr, instance);
 
     if ((size_t)instance < CFG_TUH_HID && s_dev_mounted[instance]) {
         s_dev_mounted[instance]   = false;
@@ -532,7 +545,7 @@ void tuh_hid_report_received_cb(uint8_t dev_addr, uint8_t instance,
         if (len >= 8) {
             process_boot_report(report + 2);
         } else {
-            printf("[hid] short boot report: len=%u (expected >=8)\n", len);
+            NES_LOG("[hid] short boot report: len=%u (expected >=8)\n", len);
         }
     } else if ((size_t)instance < CFG_TUH_HID && s_is_report_kbd[instance]) {
         // Report protocol keyboard: same logical layout but may be prefixed
@@ -555,7 +568,7 @@ void tuh_hid_report_received_cb(uint8_t dev_addr, uint8_t instance,
         if (klen >= 8) {
             process_boot_report(kbd + 2);
         } else {
-            printf("[hid] short report-protocol report: klen=%u\n", klen);
+            NES_LOG("[hid] short report-protocol report: klen=%u\n", klen);
         }
     }
 
