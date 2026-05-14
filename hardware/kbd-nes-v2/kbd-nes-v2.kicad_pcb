@@ -225,6 +225,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "b22d9bb5-ba49-42e3-9995-61650474abd4")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/c36b6f3e-adc5-43dc-a925-bc52a2590c2b/26b7ec8c-1d86-47bc-8f8b-ed421f10f3a1")
 		(sheetname "/USB Keyboard Host/")
@@ -400,6 +413,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "14dd2d28-709b-4d11-8e0d-54b927de00ee")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/c36b6f3e-adc5-43dc-a925-bc52a2590c2b/151420f2-db54-49e6-821b-4c007d577de5")
 		(sheetname "/USB Keyboard Host/")
@@ -572,6 +598,19 @@
 				(font
 					(size 0.6 1)
 					(thickness 0.1)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "a2fbbb96-3121-48c4-81ac-a95b796ed437")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -974,6 +1013,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d53eef04-6e1e-4d0a-b659-f0a634806792")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/eb7945d8-8bcb-4aa1-9b5c-a02a2b7be619")
 		(sheetname "/RP2040 Core/")
@@ -1140,6 +1192,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b050d5f1-ab32-42a5-bd2b-338e172aa00b")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "ecfbcedc-0b07-42fe-8f00-8545cb69ea32")
 			(effects
 				(font
 					(size 1 1)
@@ -1319,6 +1384,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "677930da-9f70-4b6b-b8d0-4287ca7351ba")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/0466a44b-60c9-4313-a1a3-b439b70c2547")
 		(sheetname "/RP2040 Core/")
@@ -1491,6 +1569,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "0bf4bc84-b014-48c1-a117-26700dc3cc7d")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/9471edac-3df1-4083-b8e9-4188ec6387ce")
 		(sheetname "/RP2040 Core/")
@@ -1590,7 +1681,7 @@
 	(footprint "kbd-nes-pretty:SMA_L4.3-W2.6-LS5.2-RD"
 		(layer "F.Cu")
 		(uuid "1d9a00b4-f535-44a2-87b3-dcb60c74ef82")
-		(at 124.9 80.6)
+		(at 124.9 80.6 180)
 		(property "Reference" "D1"
 			(at 0.4 -2.3 0)
 			(layer "F.SilkS")
@@ -1635,7 +1726,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C87074"
+		(property "LCSC Part" ""
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1648,7 +1739,7 @@
 			)
 		)
 		(property "Manufacturer" "DIODES(美台)"
-			(at 0 0 0)
+			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
@@ -1661,11 +1752,24 @@
 			)
 		)
 		(property "MPN" "SMAJ5.0A-13-F"
-			(at 0 0 0)
+			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "64d528d7-cacf-4cde-95bc-c18c9a8e6c3f")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C87074"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "94bd3ecf-e1d7-4fe9-8a7a-eedf650631f1")
 			(effects
 				(font
 					(size 1 1)
@@ -1685,34 +1789,14 @@
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
-			(start -2.6 -1.43)
-			(end 2.6 -1.43)
+			(start 2.6 -1.43)
+			(end 2.6 -1.19)
 			(stroke
 				(width 0.15)
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "fa0d346d-103d-4e7e-9a45-e35b49d773a0")
-		)
-		(fp_line
-			(start -2.6 1.43)
-			(end 2.6 1.43)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "60648c61-6ea5-4333-a98b-8c7bd8f0cac1")
-		)
-		(fp_line
-			(start -0.88 -1.43)
-			(end -0.88 1.43)
-			(stroke
-				(width 0.15)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "a30c2295-1332-41c0-b9cb-414c62e765d4")
+			(uuid "07ae925c-4619-4b70-9d45-ca972055e3f6")
 		)
 		(fp_line
 			(start 2.59 1.18)
@@ -1725,14 +1809,34 @@
 			(uuid "8df95811-bd62-4060-8a53-0934b82d3ccf")
 		)
 		(fp_line
-			(start 2.6 -1.43)
-			(end 2.6 -1.19)
+			(start -0.88 -1.43)
+			(end -0.88 1.43)
 			(stroke
 				(width 0.15)
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "07ae925c-4619-4b70-9d45-ca972055e3f6")
+			(uuid "a30c2295-1332-41c0-b9cb-414c62e765d4")
+		)
+		(fp_line
+			(start -2.6 1.43)
+			(end 2.6 1.43)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "60648c61-6ea5-4333-a98b-8c7bd8f0cac1")
+		)
+		(fp_line
+			(start -2.6 -1.43)
+			(end 2.6 -1.43)
+			(stroke
+				(width 0.15)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "fa0d346d-103d-4e7e-9a45-e35b49d773a0")
 		)
 		(fp_circle
 			(center -2.61 1.3)
@@ -1747,19 +1851,6 @@
 		)
 		(fp_poly
 			(pts
-				(xy -2.52001 -1.50241) (xy -2.521331 -1.095807) (xy -2.980868 -1.100328) (xy -2.97721 -1.50241)
-				(xy -2.52001 -1.50241)
-			)
-			(stroke
-				(width 0)
-				(type solid)
-			)
-			(fill yes)
-			(layer "F.SilkS")
-			(uuid "8a3ddf4a-ad0f-40af-af5a-6a122b0cd5bb")
-		)
-		(fp_poly
-			(pts
 				(xy -2.511781 1.095959) (xy -2.513101 1.502562) (xy -2.972638 1.498041) (xy -2.968981 1.095959)
 				(xy -2.511781 1.095959)
 			)
@@ -1771,25 +1862,28 @@
 			(layer "F.SilkS")
 			(uuid "d6f9ef7b-ebc7-4a04-8bf3-6c72d4078e33")
 		)
-		(fp_line
-			(start -2.16 -1.3)
-			(end 2.16 -1.3)
+		(fp_poly
+			(pts
+				(xy -2.52001 -1.50241) (xy -2.521331 -1.095807) (xy -2.980868 -1.100328) (xy -2.97721 -1.50241)
+				(xy -2.52001 -1.50241)
+			)
 			(stroke
-				(width 0.05)
+				(width 0)
 				(type solid)
 			)
-			(layer "F.CrtYd")
-			(uuid "68687217-e184-40b6-afb4-7a2735dd1055")
+			(fill yes)
+			(layer "F.SilkS")
+			(uuid "8a3ddf4a-ad0f-40af-af5a-6a122b0cd5bb")
 		)
 		(fp_line
-			(start -2.16 1.3)
-			(end -2.16 -1.3)
+			(start 2.16 1.3)
+			(end -2.16 1.3)
 			(stroke
 				(width 0.05)
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "b12c0cfa-8989-4bcb-a0f0-4c52d3163106")
+			(uuid "0b1c9984-bd61-42e8-8fe7-d158165ecb29")
 		)
 		(fp_line
 			(start 2.16 -1.3)
@@ -1802,14 +1896,24 @@
 			(uuid "6f2f7793-17da-4021-8da6-4a19f49d255b")
 		)
 		(fp_line
-			(start 2.16 1.3)
-			(end -2.16 1.3)
+			(start -2.16 1.3)
+			(end -2.16 -1.3)
 			(stroke
 				(width 0.05)
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "0b1c9984-bd61-42e8-8fe7-d158165ecb29")
+			(uuid "b12c0cfa-8989-4bcb-a0f0-4c52d3163106")
+		)
+		(fp_line
+			(start -2.16 -1.3)
+			(end 2.16 -1.3)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "68687217-e184-40b6-afb4-7a2735dd1055")
 		)
 		(fp_text user "${REFERENCE}"
 			(at 0 0 0)
@@ -1823,19 +1927,19 @@
 			)
 		)
 		(pad "1" smd rect
-			(at -2.2 0 180)
+			(at -2.2 0)
 			(size 2 2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "GND")
+			(net "/NES Input Output/NES_5V_CLEAN")
 			(pinfunction "C_1")
 			(pintype "passive")
 			(uuid "356f7188-162d-490f-9009-ea1d07f703c1")
 		)
 		(pad "2" smd rect
-			(at 2.2 0 180)
+			(at 2.2 0)
 			(size 2 2)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "/NES Input Output/NES_5V_CLEAN")
+			(net "GND")
 			(pinfunction "A_2")
 			(pintype "passive")
 			(uuid "d5eeaac7-015b-499c-ba1c-3a9595ecd71d")
@@ -1902,7 +2006,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C55266"
+		(property "LCSC Part" ""
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1933,6 +2037,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "3e7a99ce-27ac-4e67-84be-21457989a439")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C55266"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "56e9178b-6f88-4a67-8317-4869d1499014")
 			(effects
 				(font
 					(size 1 1)
@@ -2188,6 +2305,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "b7d59f0c-91db-4bc4-b4d8-fdb80e85eefd")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/d7c30ee0-a4b5-4ce5-83f8-5f3527911e7d")
 		(sheetname "/RP2040 Core/")
@@ -2433,6 +2563,19 @@
 				(font
 					(size 0.6 1)
 					(thickness 0.1)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "4c4947a2-184d-4bb4-94a8-983d3ef767aa")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -2733,6 +2876,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "e2b5b410-366b-40d2-ac70-d2407f772d93")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/c36b6f3e-adc5-43dc-a925-bc52a2590c2b/8a9e8f48-2490-49d4-976f-b6c5639e398e")
 		(sheetname "/USB Keyboard Host/")
@@ -2905,6 +3061,19 @@
 				(font
 					(size 0.6 1)
 					(thickness 0.1)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "2bb24984-b2ad-4548-a077-f1f47f0fe9a0")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -3988,6 +4157,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "10bc2b77-9329-4ad9-833f-869ab52e5290")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/766bda8a-e093-4c79-aa51-ef34a113a0a4/ba5f8098-4449-42c2-bdef-b25b9525ea92")
 		(sheetname "/NES Input Output/")
@@ -4159,6 +4341,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "2076b6d8-0e90-458c-910f-f046e11f0ad8")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/c36b6f3e-adc5-43dc-a925-bc52a2590c2b/d6c5a975-bc15-4e81-b123-8649594aeffa")
 		(sheetname "/USB Keyboard Host/")
@@ -4323,6 +4518,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "6b9c2dbe-368b-4039-8b5a-6a81e633a23a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "dc4c6c6d-ef46-493e-be32-8a8d24be51fe")
 			(effects
 				(font
 					(size 1 1)
@@ -4505,6 +4713,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "71efed87-390a-4836-baf1-16c868c7dbeb")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/766bda8a-e093-4c79-aa51-ef34a113a0a4/2424a4f5-cba8-4e4f-8f61-84d49db69c1f")
 		(sheetname "/NES Input Output/")
@@ -4680,6 +4901,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f353007c-83a0-44f4-adfb-fac87b3d7468")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/766bda8a-e093-4c79-aa51-ef34a113a0a4/7946a0e3-ba42-4808-b987-d51d4bb5a7a2")
 		(sheetname "/NES Input Output/")
@@ -4845,6 +5079,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "c5cd58ce-0e22-4e59-a7d5-ea4366c2f46c")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "bafdb438-6286-4a34-a66f-efac41afa1cd")
 			(effects
 				(font
 					(size 1 1)
@@ -5391,6 +5638,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "7f6c97d5-71b1-4f83-9e10-78b8f61f0173")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/d2707ded-e318-488b-bc0d-e47a4e05a415")
 		(sheetname "/RP2040 Core/")
@@ -5556,6 +5816,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "30303bee-1e4d-49f6-929e-d145ffaf4c58")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f93642f5-ac9e-4890-9ce9-db693fcaefe5")
 			(effects
 				(font
 					(size 1 1)
@@ -5735,6 +6008,19 @@
 				(font
 					(size 0.6 1)
 					(thickness 0.1)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "e24bdc86-8b91-4958-976f-0b2e41e90414")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -6137,6 +6423,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "9cb0628f-7b8f-4078-b170-2f8fc9f978bb")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/de752c9c-544d-45c3-9667-6949c2ee5cc4")
 		(sheetname "/RP2040 Core/")
@@ -6281,7 +6580,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C151169"
+		(property "LCSC Part" ""
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -6312,6 +6611,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "a279da4e-7b35-4147-8030-ffd5d9024b8b")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C151169"
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "ea40777b-5eee-478f-af07-64769a9d6fd8")
 			(effects
 				(font
 					(size 1 1)
@@ -6581,6 +6893,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f9d8785e-8991-4e80-8d02-6c8f5cd88163")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/3c46cba8-abb4-4dac-8136-b843531b3391")
 		(sheetname "/RP2040 Core/")
@@ -6752,6 +7077,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "c70f92d5-8ea5-479d-bfaa-e1b0300dbaa5")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/c36b6f3e-adc5-43dc-a925-bc52a2590c2b/d39340c7-b47c-4c54-8de4-4dd91bd74d1f")
 		(sheetname "/USB Keyboard Host/")
@@ -6914,6 +7252,19 @@
 				(font
 					(size 0.6 1)
 					(thickness 0.1)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "750bad53-a692-49a0-b5b8-3f810bc46186")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -7383,6 +7734,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "636f0cd5-fdb5-411c-997e-493914d8a1b4")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/2d61a470-e8df-4737-9fe3-3ae7d4d71b2b")
 		(sheetname "/RP2040 Core/")
@@ -7558,6 +7922,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "b4c04a5e-ebfd-4f16-9117-e32494a25727")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/7e195d05-09f2-4190-ae66-df05585b43bb")
 		(sheetname "/RP2040 Core/")
@@ -7704,7 +8081,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C19224"
+		(property "LCSC Part" ""
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -7735,6 +8112,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "e798e199-3a83-45ae-a690-86f4c7e39c43")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C19224"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f6172024-a133-4827-b6c2-1933e3da75b9")
 			(effects
 				(font
 					(size 1 1)
@@ -8052,6 +8442,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "096300e2-f02d-497e-a2e6-e36783cda800")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/7f627d23-23d6-4fa4-bee9-d78ce4fa9f7b")
 		(sheetname "/RP2040 Core/")
@@ -8227,6 +8630,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "2fd4f73d-b728-45d5-9701-ef021f40fcb0")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/766bda8a-e093-4c79-aa51-ef34a113a0a4/69342e7b-53db-4890-86c6-6609b2239a52")
 		(sheetname "/NES Input Output/")
@@ -8399,6 +8815,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "c83f0f95-ba3d-4cd0-afcb-e77181ea7fd8")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/0997a64b-f877-4ffe-8dcb-244e9f433dc5")
 		(sheetname "/RP2040 Core/")
@@ -8564,6 +8993,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8db50d02-7e85-4209-8a6d-69bcfd5d8285")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f7baa98e-eb3e-4e93-94ff-d7ea69c66416")
 			(effects
 				(font
 					(size 1 1)
@@ -8746,6 +9188,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "88fab265-7def-47b4-89e3-386b81999811")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/be84fd88-ddc2-47b4-af8f-0f33b93b7bd0")
 		(sheetname "/RP2040 Core/")
@@ -8917,6 +9372,19 @@
 				(font
 					(size 0.6 1)
 					(thickness 0.1)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "94b77e50-0cfc-400b-9dea-cb90733483eb")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -9115,6 +9583,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "4ec82db0-c1f7-4138-9439-544448af8ecf")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/62443988-57db-417b-b8df-0a62c7865007")
 		(sheetname "/RP2040 Core/")
@@ -9287,6 +9768,19 @@
 				(font
 					(size 0.6 1)
 					(thickness 0.1)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "26cbbfe3-374c-4fbd-80c1-5913d3e2fb8d")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -9465,6 +9959,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "30e4d9cd-9d38-4311-a778-8723b41cad6e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/766bda8a-e093-4c79-aa51-ef34a113a0a4/07d667ce-892b-4677-bf2f-aa5f9158684c")
 		(sheetname "/NES Input Output/")
@@ -9640,6 +10147,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "93b1e445-194a-44c3-bce8-bf1f2a990bc2")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/0cdf70b6-ccc6-484f-a48a-1f48a110d061")
 		(sheetname "/RP2040 Core/")
@@ -9806,6 +10326,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "3f758bcd-85b8-4cac-a1df-7e020dad03a4")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "c71f5ad5-3f43-4bad-9aa3-28061f144756")
 			(effects
 				(font
 					(size 1 1)
@@ -9988,6 +10521,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "e5271c9f-8e48-42d7-b390-26535b7f3711")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/88922908-a958-4562-9807-4829e1292dca")
 		(sheetname "/RP2040 Core/")
@@ -10160,6 +10706,19 @@
 				(font
 					(size 0.6 1)
 					(thickness 0.1)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "e787ffe4-f1c6-4ca2-8634-571d406d4142")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -11383,6 +11942,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "04e87ae4-c25c-4b4d-adbd-b7f3403cda19")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/a8bd29ff-d6fb-410e-8e2d-0968bf1d499c")
 		(sheetname "/RP2040 Core/")
@@ -11544,6 +12116,19 @@
 				(font
 					(size 0.6 1)
 					(thickness 0.1)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "1d48045e-f6a5-46d1-b22f-67cce19e19f9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -11720,6 +12305,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "e61a908a-2814-4aba-ba58-ea2dd2212c6c")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/5b24ed6b-313b-4bb4-9687-e37099cd0a41")
 		(sheetname "/RP2040 Core/")
@@ -11865,7 +12463,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C2939728"
+		(property "LCSC Part" ""
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -11896,6 +12494,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "dfea739a-8776-406f-83e7-21029351ecdb")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C2939728"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "b0e42b30-0b2d-4af1-a267-bbc50fccc1fc")
 			(effects
 				(font
 					(size 1 1)
@@ -12343,6 +12954,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d9a3333c-20b3-4d31-959f-feb4efa5ff0a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/d07e9bb1-8f5f-401a-b721-641fd3db7b93")
 		(sheetname "/RP2040 Core/")
@@ -12507,6 +13131,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "424f2753-9f45-4e80-b3e7-4c52a55385c9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "cc937070-166e-46ca-a8a8-7b76968d7b54")
 			(effects
 				(font
 					(size 1 1)
@@ -13053,6 +13690,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "37622203-1df9-4b75-8a60-f962b62be406")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/766bda8a-e093-4c79-aa51-ef34a113a0a4/7bab03b3-c28d-4296-bacc-a64c0887b62c")
 		(sheetname "/NES Input Output/")
@@ -13228,6 +13878,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "10329de3-1995-465a-8e4d-6bd4ecb9437f")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/55748019-0a92-43cc-a21b-d434146da0a6/06ba60cf-9a5a-495b-b993-42a10e2e90a0")
 		(sheetname "/RP2040 Core/")
@@ -13395,6 +14058,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "76fa86e6-33c9-4088-aae4-84c25cdbe4c1")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "dcffab71-9c07-4c36-af14-27af990abce2")
 			(effects
 				(font
 					(size 1 1)

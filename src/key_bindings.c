@@ -21,7 +21,21 @@ static const uint8_t k_default_keycodes[NES_NUM_BUTTONS] = {
     [NES_BTN_RIGHT]  = HID_KEY_D,
 };
 
+static const uint8_t k_mister_nes_reset_order[NES_NUM_BUTTONS] = {
+    NES_BTN_RIGHT,
+    NES_BTN_LEFT,
+    NES_BTN_DOWN,
+    NES_BTN_UP,
+    NES_BTN_A,
+    NES_BTN_B,
+    NES_BTN_SELECT,
+    NES_BTN_START,
+};
+
 uint8_t g_keycodes[NES_NUM_BUTTONS];
+
+static bool s_reset_mapping_active = false;
+static uint8_t s_reset_mapping_step = 0;
 
 // Layout of the flash sector:
 //   byte 0:   magic (FLASH_MAGIC_VALUE)
@@ -64,6 +78,40 @@ bool key_bindings_save(void) {
     if (readback[0] != FLASH_MAGIC_VALUE) return false;
     for (int i = 0; i < NES_NUM_BUTTONS; i++) {
         if (readback[i + 1] != g_keycodes[i]) return false;
+    }
+    return true;
+}
+
+void key_bindings_start_reset_mapping(void) {
+    s_reset_mapping_active = true;
+    s_reset_mapping_step = 0;
+    led_set_mode(LED_MODE_FAST_BLINK);
+}
+
+bool key_bindings_reset_mapping_active(void) {
+    return s_reset_mapping_active;
+}
+
+bool key_bindings_reset_mapping_capture(uint8_t keycode) {
+    if (!s_reset_mapping_active || keycode == 0) {
+        return false;
+    }
+
+    uint8_t btn = k_mister_nes_reset_order[s_reset_mapping_step];
+    g_keycodes[btn] = keycode;
+    led_flash((uint8_t)(s_reset_mapping_step + 1));
+
+    s_reset_mapping_step++;
+    if (s_reset_mapping_step < NES_NUM_BUTTONS) {
+        return true;
+    }
+
+    bool ok = key_bindings_save();
+    s_reset_mapping_active = false;
+    s_reset_mapping_step = 0;
+    led_set_mode(LED_MODE_SOLID_ON);
+    if (ok) {
+        led_flash(3);
     }
     return true;
 }

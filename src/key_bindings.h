@@ -44,6 +44,17 @@ void key_bindings_load(void);
 // Save current g_keycodes[] to flash; returns true on success
 bool key_bindings_save(void);
 
+// Start non-blocking reset/remap capture.
+// Captures the next 8 keyboard press edges in MiSTer-style NES order.
+void key_bindings_start_reset_mapping(void);
+
+// Returns true while non-blocking reset/remap capture is active.
+bool key_bindings_reset_mapping_active(void);
+
+// Feed a newly pressed key into non-blocking reset/remap capture.
+// Returns true if the key was consumed by capture.
+bool key_bindings_reset_mapping_capture(uint8_t keycode);
+
 // Enter remap mode: interactively capture new bindings from keyboard
 // Returns true if remap completed, false if timed out / aborted
 bool key_bindings_remap(void);

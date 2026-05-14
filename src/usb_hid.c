@@ -47,6 +47,7 @@ static uint8_t s_report_kbd_id[CFG_TUH_HID] = {0};   // report_id (0 = no IDs)
 // Remap mode key tracking
 static uint8_t s_last_pressed_key = 0;
 static uint8_t s_held_keys[6]     = {0};  // boot report has 6 key slots
+static bool s_reset_mapping_wait_release = false;
 
 // Raw keyboard-derived button state before optional tap stretch is applied.
 static uint8_t s_keyboard_nes_state = 0xFF;
@@ -153,6 +154,33 @@ static uint8_t neutralize_opposing_directions(uint8_t state) {
     return state;
 }
 
+static bool keycode_is_down(const uint8_t keycodes[6], uint8_t keycode) {
+    for (int k = 0; k < 6; k++) {
+        if (keycodes[k] == keycode) {
+            return true;
+        }
+    }
+    return false;
+}
+
+static bool any_keycode_is_down(const uint8_t keycodes[6]) {
+    for (int k = 0; k < 6; k++) {
+        if (keycodes[k] >= 0x04) {
+            return true;
+        }
+    }
+    return false;
+}
+
+static bool keycode_was_held(uint8_t keycode) {
+    for (int j = 0; j < 6; j++) {
+        if (s_held_keys[j] == keycode) {
+            return true;
+        }
+    }
+    return false;
+}
+
 #if NES_TRACE_SELECT
 static void trace_select(const char *stage, uint8_t state, uint32_t now) {
     NES_LOG("[trace][Select] %s t=%luus pressed=%u state=0x%02X"
@@ -238,8 +266,15 @@ static void update_exposed_state(uint32_t now) {
     publish_current_state(now, false);
 }
 
-// Update keyboard-derived state from a 6-byte boot report keycode array
-static void process_boot_report(const uint8_t keycodes[6]) {
+static void release_all_keyboard_buttons(uint32_t now) {
+    s_keyboard_nes_state = 0xFF;
+    memset(s_press_started_us, 0, sizeof(s_press_started_us));
+    memset(s_release_hold_until_us, 0, sizeof(s_release_hold_until_us));
+    update_exposed_state(now);
+}
+
+// Update keyboard-derived state from a boot report modifier byte and 6 keycodes
+static void process_boot_report(uint8_t modifiers, const uint8_t keycodes[6]) {
     uint8_t new_state = 0xFF; // start with all unpressed
     uint32_t now = now_us();
     uint8_t prev_keyboard_state = s_keyboard_nes_state;
@@ -257,6 +292,50 @@ static void process_boot_report(const uint8_t keycodes[6]) {
         }
     }
 
+    bool ctrl_down = (modifiers & (KEYBOARD_MODIFIER_LEFTCTRL |
+                                   KEYBOARD_MODIFIER_RIGHTCTRL)) != 0;
+    bool alt_down = (modifiers & (KEYBOARD_MODIFIER_LEFTALT |
+                                  KEYBOARD_MODIFIER_RIGHTALT)) != 0;
+    bool delete_down = keycode_is_down(keycodes, HID_KEY_DELETE);
+    if (ctrl_down && alt_down && delete_down && !keycode_was_held(HID_KEY_DELETE)) {
+        NES_LOG("[mapping] Ctrl-Alt-Delete detected; capture order: Right, Left, Down, Up, A, B, Select, Start\n");
+        key_bindings_start_reset_mapping();
+        s_reset_mapping_wait_release = true;
+        memcpy(s_held_keys, keycodes, 6);
+        s_last_pressed_key = 0;
+        release_all_keyboard_buttons(now);
+        return;
+    }
+
+    if (key_bindings_reset_mapping_active()) {
+        if (s_reset_mapping_wait_release) {
+            if (!any_keycode_is_down(keycodes)) {
+                s_reset_mapping_wait_release = false;
+                NES_LOG("[mapping] ready for next 8 key presses\n");
+            }
+            memcpy(s_held_keys, keycodes, 6);
+            release_all_keyboard_buttons(now);
+            return;
+        }
+
+        for (int k = 0; k < 6; k++) {
+            uint8_t kc = keycodes[k];
+            if (kc < 0x04) {
+                continue;
+            }
+
+            poll_keys_set(kc);
+            if (!keycode_was_held(kc)) {
+                key_bindings_reset_mapping_capture(kc);
+            }
+        }
+
+        memcpy(s_held_keys, keycodes, 6);
+        s_last_pressed_key = 0;
+        release_all_keyboard_buttons(now);
+        return;
+    }
+
     // Check each pressed key against our bindings
     for (int k = 0; k < 6; k++) {
         uint8_t kc = keycodes[k];
@@ -270,10 +349,7 @@ static void process_boot_report(const uint8_t keycodes[6]) {
         {
             poll_keys_set(kc);
 
-            bool was_held = false;
-            for (int j = 0; j < 6; j++) {
-                if (s_held_keys[j] == kc) { was_held = true; break; }
-            }
+            bool was_held = keycode_was_held(kc);
             if (!was_held && s_last_pressed_key == 0) {
                 s_last_pressed_key = kc;
             }
@@ -558,7 +634,7 @@ void tuh_hid_report_received_cb(uint8_t dev_addr, uint8_t instance,
     if (itf_protocol == HID_ITF_PROTOCOL_KEYBOARD) {
         // Boot protocol: fixed 8-byte report [modifier][reserved][key0..key5]
         if (len >= 8) {
-            process_boot_report(report + 2);
+            process_boot_report(report[0], report + 2);
         } else {
             NES_LOG("[hid] short boot report: len=%u (expected >=8)\n", len);
         }
@@ -581,7 +657,7 @@ void tuh_hid_report_received_cb(uint8_t dev_addr, uint8_t instance,
 
         // Remaining bytes: [modifier][reserved][key0..key5]
         if (klen >= 8) {
-            process_boot_report(kbd + 2);
+            process_boot_report(kbd[0], kbd + 2);
         } else {
             NES_LOG("[hid] short report-protocol report: klen=%u\n", klen);
         }

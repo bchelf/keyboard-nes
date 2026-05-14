@@ -2241,7 +2241,7 @@
 	)
 	(symbol
 		(lib_id "kbd-nes:SMAJ5.0A-13-F")
-		(at 149.86 127 90)
+		(at 149.86 127 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2252,29 +2252,29 @@
 		(fields_autoplaced yes)
 		(uuid "161d3639-4527-494f-8280-e35415b98f48")
 		(property "Reference" "D1"
-			(at 153.67 126.2399 90)
+			(at 153.67 125.2199 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "SMAJ5.0A-13-F"
-			(at 153.67 128.7799 90)
+			(at 153.67 127.7599 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Footprint" "kbd-nes-pretty:SMA_L4.3-W2.6-LS5.2-RD"
-			(at 157.48 127 0)
+			(at 142.24 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2285,7 +2285,7 @@
 			)
 		)
 		(property "Datasheet" "https://lcsc.com/product-detail/TVS_DIODES_SMAJ5-0A-13-F_SMAJ5-0A-13-F_C87074.html"
-			(at 160.02 127 0)
+			(at 139.7 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2307,7 +2307,7 @@
 			)
 		)
 		(property "Manufacturer" "DIODES(美台)"
-			(at 162.56 127 0)
+			(at 137.16 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2318,7 +2318,7 @@
 			)
 		)
 		(property "MPN" "SMAJ5.0A-13-F"
-			(at 165.1 127 0)
+			(at 134.62 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2329,7 +2329,7 @@
 			)
 		)
 		(property "LCSC" "C87074"
-			(at 167.64 127 0)
+			(at 132.08 127 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
