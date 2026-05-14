@@ -138,6 +138,21 @@ static inline bool bit_is_pressed(uint8_t state, int btn) {
     return (state & (uint8_t)(1u << btn)) == 0;
 }
 
+static uint8_t neutralize_opposing_directions(uint8_t state) {
+    const uint8_t up_down = (uint8_t)((1u << NES_BTN_UP) | (1u << NES_BTN_DOWN));
+    const uint8_t left_right = (uint8_t)((1u << NES_BTN_LEFT) | (1u << NES_BTN_RIGHT));
+
+    if ((state & up_down) == 0) {
+        state |= up_down;
+    }
+
+    if ((state & left_right) == 0) {
+        state |= left_right;
+    }
+
+    return state;
+}
+
 #if NES_TRACE_SELECT
 static void trace_select(const char *stage, uint8_t state, uint32_t now) {
     NES_LOG("[trace][Select] %s t=%luus pressed=%u state=0x%02X"
@@ -177,7 +192,7 @@ static uint8_t compute_exposed_state(uint32_t now) {
         }
     }
 
-    return state;
+    return neutralize_opposing_directions(state);
 }
 
 static void publish_current_state(uint32_t now, bool prime_only) {

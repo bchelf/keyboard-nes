@@ -1,0 +1,641 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "7f2dbb6c-7ce5-4460-8264-cfc72d511629")
+	(paper "A4")
+	(title_block
+		(title "USB Keyboard on Original NES-001")
+		(date "2026-04-08")
+		(rev "0.1")
+		(company "MicroNES")
+	)
+	(lib_symbols)
+	(junction
+		(at 115.57 83.82)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "36c2e44f-9046-4f3f-b332-8fa3641e1573")
+	)
+	(junction
+		(at 215.9 91.44)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "472a76e0-c00f-4131-b401-f10c092cf1e3")
+	)
+	(wire
+		(pts
+			(xy 177.8 72.39) (xy 190.5 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0caf38da-b9b3-49b0-bb46-41ba28c9e32f")
+	)
+	(wire
+		(pts
+			(xy 177.8 91.44) (xy 215.9 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0e647d5b-c063-447e-ab75-6833d3d86dde")
+	)
+	(wire
+		(pts
+			(xy 115.57 123.19) (xy 115.57 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "12e6281a-089f-4456-a8e6-028dba7e13ce")
+	)
+	(wire
+		(pts
+			(xy 106.68 74.93) (xy 119.38 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "14a1b53d-3990-4900-99a8-ec2a44bf1704")
+	)
+	(wire
+		(pts
+			(xy 228.6 74.93) (xy 228.6 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "18caf1be-ddfe-4876-9a95-d0fe8ec36bef")
+	)
+	(wire
+		(pts
+			(xy 215.9 87.63) (xy 215.9 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1a2a7ec3-774d-4ba5-8636-4eb7618cfbe0")
+	)
+	(wire
+		(pts
+			(xy 228.6 71.12) (xy 224.79 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2a6f9b8f-f719-4e7e-9f5e-9468c4886a4d")
+	)
+	(wire
+		(pts
+			(xy 177.8 80.01) (xy 190.5 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2f4a9ee2-0c95-423f-99b2-105848acd168")
+	)
+	(wire
+		(pts
+			(xy 111.76 83.82) (xy 111.76 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "369d5542-6f3c-41ef-b310-a55e8be6a549")
+	)
+	(wire
+		(pts
+			(xy 215.9 91.44) (xy 215.9 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4450f1c8-e595-4dfb-9e27-31ba89f7fc05")
+	)
+	(wire
+		(pts
+			(xy 115.57 83.82) (xy 111.76 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "577beed8-855d-403b-a6b2-e5535102959c")
+	)
+	(wire
+		(pts
+			(xy 77.47 133.35) (xy 215.9 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7374ee5a-f57b-479e-bbba-25f52674ea68")
+	)
+	(wire
+		(pts
+			(xy 228.6 63.5) (xy 228.6 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8c68b184-ed82-4b0e-be5f-199bbf5f6180")
+	)
+	(wire
+		(pts
+			(xy 175.26 63.5) (xy 228.6 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9002eff1-8dd4-4425-81b2-5bf20f74863e")
+	)
+	(wire
+		(pts
+			(xy 177.8 76.2) (xy 190.5 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "adceb925-883b-4ec0-b22a-71fd040021f9")
+	)
+	(wire
+		(pts
+			(xy 177.8 82.55) (xy 190.5 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b519c30b-fa21-4eb8-ad26-ec91632b50dd")
+	)
+	(wire
+		(pts
+			(xy 77.47 76.2) (xy 77.47 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b9458f0f-8577-4fce-b617-7cefb198b3d8")
+	)
+	(wire
+		(pts
+			(xy 224.79 74.93) (xy 228.6 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "babaa1b6-33c1-42c2-bd43-3f05aaaa8028")
+	)
+	(wire
+		(pts
+			(xy 115.57 123.19) (xy 228.6 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bfd77ab3-0897-43eb-91bd-19f88935b93f")
+	)
+	(wire
+		(pts
+			(xy 111.76 81.28) (xy 106.68 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c08bda1a-d078-41de-aa7b-775e251eda39")
+	)
+	(wire
+		(pts
+			(xy 77.47 76.2) (xy 78.74 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7f8399e-106e-45fe-969b-50f1618f5e5a")
+	)
+	(wire
+		(pts
+			(xy 119.38 83.82) (xy 115.57 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d1d7e53a-3712-4c90-adf0-778b74ce8271")
+	)
+	(wire
+		(pts
+			(xy 106.68 77.47) (xy 119.38 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d5a709ee-44cf-406f-8870-f6724187e7a8")
+	)
+	(wire
+		(pts
+			(xy 106.68 72.39) (xy 119.38 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f4a9e603-7079-4f38-a7d4-980a1c567793")
+	)
+	(sheet
+		(at 119.38 63.5)
+		(size 58.42 50.8)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "55748019-0a92-43cc-a21b-d434146da0a6")
+		(property "Sheetname" "RP2040 Core"
+			(at 119.38 62.7884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "rp2040_core.kicad_sch"
+			(at 119.38 114.8846 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "NES_CLOCK_3V3" input
+			(at 119.38 72.39 180)
+			(uuid "798d36b0-9a0e-40b8-96a1-e90677e00f4a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "NES_DATA_GPIO" output
+			(at 119.38 74.93 180)
+			(uuid "2fc405ce-18be-4a3d-8ea9-25ce57624f87")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "NES_LATCH_3V3" input
+			(at 119.38 77.47 180)
+			(uuid "d90d003f-5ddd-4b4b-9693-ba97fc418782")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "NES_5V_CLEAN" input
+			(at 177.8 91.44 0)
+			(uuid "37311ebe-4d6d-4d82-bb3e-608989ca30b6")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "FAULT_N" input
+			(at 177.8 72.39 0)
+			(uuid "cf30883b-93f8-4ea6-a536-574dbb17bb1e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "HOST_VBUS_EN" output
+			(at 177.8 76.2 0)
+			(uuid "c6d99344-6e52-48cd-a474-76f9a6be51cf")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "USB_DM" input
+			(at 177.8 80.01 0)
+			(uuid "92a652ab-f6f5-4450-a7f6-0860b922827d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "USB_DP" output
+			(at 177.8 82.55 0)
+			(uuid "3dce43c0-5961-427f-a269-937d26ebb61b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" input
+			(at 119.38 83.82 180)
+			(uuid "4dc7cd92-6c0a-45c2-8019-6012ad03a85d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "3V3" input
+			(at 175.26 63.5 90)
+			(uuid "f688d4e2-23e4-41d3-9848-c1f903a60ec9")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "kbd-nes-v2"
+				(path "/7f2dbb6c-7ce5-4460-8264-cfc72d511629"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 78.74 66.04)
+		(size 27.94 17.78)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "766bda8a-e093-4c79-aa51-ef34a113a0a4")
+		(property "Sheetname" "NES Input Output"
+			(at 78.74 65.3284 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "nes_io.kicad_sch"
+			(at 78.74 84.4046 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Field2" ""
+			(at 78.74 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "NES_CLOCK_3V3" output
+			(at 106.68 72.39 0)
+			(uuid "e7150394-475b-4990-aa1a-d9dccb6d18eb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "NES_DATA_GPIO" input
+			(at 106.68 74.93 0)
+			(uuid "1a6615a3-675c-4ea6-99e2-e160fcecb28e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "NES_LATCH_3V3" output
+			(at 106.68 77.47 0)
+			(uuid "7f433d12-446f-40ca-ada7-c30a2f7a309c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "NES_IO_GND" input
+			(at 106.68 81.28 0)
+			(uuid "a0e078e7-b659-4907-ab14-854a668879dd")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "NES_5V_CLEAN" input
+			(at 78.74 76.2 180)
+			(uuid "861f72b6-17f5-4b25-b667-c15548382386")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "kbd-nes-v2"
+				(path "/7f2dbb6c-7ce5-4460-8264-cfc72d511629"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 190.5 67.31)
+		(size 34.29 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "c36b6f3e-adc5-43dc-a925-bc52a2590c2b")
+		(property "Sheetname" "USB Keyboard Host"
+			(at 190.5 66.5984 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "usb_keyboard_host.kicad_sch"
+			(at 190.5 88.2146 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "NES_5V_CLEAN" input
+			(at 215.9 87.63 270)
+			(uuid "1f008247-4123-4747-a3f0-0bbe40dc770b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "FAULT_N" input
+			(at 190.5 72.39 180)
+			(uuid "dcfeb392-845d-4e82-a183-5cfe8008cf75")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "HOST_VBUS_EN" input
+			(at 190.5 76.2 180)
+			(uuid "8d4c1b02-451e-45b1-b261-362049b76d2f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "USB_DP" input
+			(at 190.5 82.55 180)
+			(uuid "fd672b6d-db1c-48f4-8374-6fe44832fc04")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "USB_DM" input
+			(at 190.5 80.01 180)
+			(uuid "f34d4ed6-cdf5-4fa3-82b4-efeefb5a455e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "USB_HOST_GND" input
+			(at 224.79 74.93 0)
+			(uuid "d21d051b-eca1-4acd-8e4b-43a5e41ac25c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "HOST_3V3_IN" input
+			(at 224.79 71.12 0)
+			(uuid "13361bb7-537a-4038-b25d-fe9b80db41b2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "kbd-nes-v2"
+				(path "/7f2dbb6c-7ce5-4460-8264-cfc72d511629"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)

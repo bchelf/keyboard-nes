@@ -1,0 +1,4 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "kbd-nes") (type "KiCad") (uri "${KIPRJMOD}/kbd-nes.kicad_sym") (options "") (descr ""))
+)
